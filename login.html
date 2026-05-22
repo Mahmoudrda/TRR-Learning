@@ -11,50 +11,143 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" href="../fonts/vip-hala-bold.otf" as="font" type="font/otf" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;0,900;1,700;1,800&family=Figtree:wght@300;400;500;600&family=Cairo:wght@400;500;600;700;800&display=block" rel="stylesheet">
-
   <link rel="stylesheet" href="../styles.css">
 
   <style>
-    .login-wrap {
-      min-height: calc(100svh - 68px);
+    body { overflow-x: hidden; }
+
+    /* ── Split layout ── */
+    .login-layout {
+      min-height: 100svh;
+      display: grid;
+      grid-template-columns: 42% 1fr;
+    }
+
+    /* ── Brand panel ── */
+    .login-brand {
+      position: relative;
+      background: var(--surface);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: clamp(32px, 5vw, 64px);
+      overflow: hidden;
+    }
+
+    .login-brand::before {
+      content: '';
+      position: absolute;
+      bottom: -15%;
+      left: -20%;
+      width: 140%;
+      height: 100%;
+      background: radial-gradient(ellipse at 35% 75%, oklch(74% 0.17 168 / 0.14) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .lb-logo {
+      position: relative;
+      z-index: 1;
       display: flex;
       align-items: center;
+      gap: 10px;
+      padding-top: clamp(68px, 8vw, 80px);
+      opacity: 0.7;
+    }
+
+    .lb-logo img { height: 28px; width: auto; }
+
+    .lb-body {
+      position: relative;
+      z-index: 1;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
       justify-content: center;
-      padding: clamp(100px, 12vw, 148px) 0 clamp(64px, 8vw, 100px);
+      padding: clamp(48px, 7vw, 80px) 0;
     }
 
-    .login-card {
-      width: 100%;
-      max-width: 420px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--r-lg);
-      padding: clamp(28px, 5vw, 40px);
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
+    .lb-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
     }
 
-    .login-header {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .login-title {
+    .lb-hl {
       font-family: var(--fd);
-      font-size: clamp(28px, 4vw, 38px);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: -0.03em;
+      line-height: 0.86;
+      color: var(--text);
+    }
+
+    .lb-hl-1 {
+      font-size: clamp(60px, 9vw, 116px);
+      display: block;
+      color: var(--text-2);
+      font-style: italic;
+    }
+
+    .lb-hl-2 {
+      font-size: clamp(76px, 12vw, 152px);
+      display: block;
+      color: var(--text);
+    }
+
+    .lb-hl em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .lb-sub {
+      margin-top: clamp(20px, 3vw, 32px);
+      font-size: clamp(14px, 1.5vw, 16px);
+      color: oklch(78% 0.008 278);
+      line-height: 1.65;
+      max-width: 32ch;
+    }
+
+    .lb-footer {
+      position: relative;
+      z-index: 1;
+      font-size: 12px;
+      color: oklch(55% 0.008 278);
+    }
+
+    /* ── Form panel ── */
+    .login-form-panel {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: clamp(32px, 6vw, 80px) clamp(28px, 5vw, 72px);
+      border-left: 1px solid var(--border);
+    }
+
+    .lf-inner {
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .lf-title {
+      font-family: var(--fd);
+      font-size: clamp(30px, 4vw, 44px);
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: -0.02em;
       line-height: 1;
       color: var(--text);
+      margin-bottom: 6px;
     }
 
-    .login-sub {
+    .lf-sub {
       font-size: 14px;
       color: var(--text-2);
       line-height: 1.55;
+      margin-bottom: clamp(28px, 4vw, 40px);
     }
 
     .form-group {
@@ -64,35 +157,32 @@
     }
 
     .form-label {
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--text-2);
     }
 
     .form-input {
       width: 100%;
-      background: var(--bg);
+      background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--r);
-      padding: 12px 14px;
+      padding: 13px 16px;
       font-family: inherit;
       font-size: 15px;
       color: var(--text);
-      transition: border-color 0.2s ease;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
       outline: none;
     }
 
     .form-input:focus {
       border-color: var(--accent);
-      outline: 2px solid oklch(74% 0.17 168 / 0.25);
-      outline-offset: 1px;
+      box-shadow: 0 0 0 3px oklch(74% 0.17 168 / 0.15);
     }
 
-    .form-input::placeholder {
-      color: oklch(60% 0.008 278);
-    }
+    .form-input::placeholder { color: oklch(52% 0.008 278); }
 
     .login-error {
       display: none;
@@ -106,21 +196,26 @@
 
     .login-error.visible { display: block; }
 
-    #login-btn {
-      width: 100%;
-      justify-content: center;
-    }
-
-    .login-note {
+    .lf-note {
       font-size: 12px;
-      color: oklch(60% 0.008 278);
-      line-height: 1.5;
+      color: oklch(58% 0.008 278);
+      line-height: 1.55;
       border-top: 1px solid var(--border);
-      padding-top: 16px;
+      padding-top: 20px;
     }
 
-    .login-note a {
-      color: var(--accent);
+    .lf-note a { color: var(--accent); }
+
+    /* Mobile: stack vertically, hide brand panel */
+    @media (max-width: 768px) {
+      .login-layout { grid-template-columns: 1fr; }
+      .login-brand { display: none; }
+      .login-form-panel {
+        border-left: none;
+        min-height: 100svh;
+        padding-top: clamp(100px, 14vw, 120px);
+        align-items: center;
+      }
     }
   </style>
 </head>
@@ -128,7 +223,6 @@
 <body>
   <a href="#main-content" class="skip-link">Skip to content</a>
 
-  <!-- ===== NAVBAR ===== -->
   <div class="navbar-wrap" id="navbar-wrap">
     <nav class="navbar" id="navbar">
       <div class="nb-content">
@@ -173,117 +267,88 @@
   </div>
 
   <main id="main-content">
-    <div class="login-wrap">
-      <div class="login-card fade-up">
-        <div class="login-header">
-          <h1 class="login-title">My Learning</h1>
-          <p class="login-sub">Log in to access your purchased online courses</p>
+    <div class="login-layout">
+
+      <!-- Brand panel (desktop only) -->
+      <div class="login-brand" aria-hidden="true">
+        <div class="lb-logo">
+          <picture>
+            <source srcset="../logo-icon.avif" type="image/avif">
+            <img src="../logo-icon.png" alt="">
+          </picture>
         </div>
 
-        <form id="login-form" novalidate>
-          <div style="display:flex;flex-direction:column;gap:16px">
+        <div class="lb-body">
+          <div class="lb-eyebrow">My Learning</div>
+          <div class="lb-hl">
+            <span class="lb-hl-1">Learn</span>
+            <span class="lb-hl-2">Viral<em>.</em></span>
+          </div>
+          <p class="lb-sub">Your purchased online courses, ready whenever you are.</p>
+        </div>
+
+        <div class="lb-footer">
+          <a href="./courses.html" style="color:inherit">Browse courses</a>
+        </div>
+      </div>
+
+      <!-- Form panel -->
+      <div class="login-form-panel">
+        <div class="lf-inner fade-up">
+          <h1 class="lf-title">Welcome back</h1>
+          <p class="lf-sub">Log in to access your online courses</p>
+
+          <form id="login-form" novalidate style="display:flex;flex-direction:column;gap:16px;margin-bottom:20px">
             <div class="form-group">
               <label class="form-label" for="email">Email</label>
-              <input
-                class="form-input"
-                type="email"
-                id="email"
-                name="email"
-                autocomplete="email"
-                placeholder="you@example.com"
-                required
-              >
+              <input class="form-input" type="email" id="email" name="email"
+                autocomplete="email" placeholder="you@example.com" required>
             </div>
             <div class="form-group">
               <label class="form-label" for="password">Password</label>
-              <input
-                class="form-input"
-                type="password"
-                id="password"
-                name="password"
-                autocomplete="current-password"
-                placeholder="Your password"
-                required
-              >
+              <input class="form-input" type="password" id="password" name="password"
+                autocomplete="current-password" placeholder="Your password" required>
             </div>
-          </div>
 
-          <div id="login-error" class="login-error" role="alert" style="margin-top:14px">
-            Incorrect email or password.
-          </div>
+            <div id="login-error" class="login-error" role="alert">
+              Incorrect email or password.
+            </div>
 
-          <button type="submit" id="login-btn" class="btn-primary" style="margin-top:20px;width:100%;justify-content:center">
-            Log in
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-          </button>
-        </form>
+            <button type="submit" id="login-btn" class="btn-primary" style="justify-content:center">
+              Log in
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </button>
+          </form>
 
-        <p class="login-note">
-          Don't have an account? Browse <a href="./courses.html">our courses</a> and enrol — you'll receive login credentials by email after purchase (online courses only).
-        </p>
-      </div>
-    </div>
-  </main>
-
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-top">
-        <a href="../" class="footer-brand">
-          <picture>
-            <source srcset="../logo-icon.avif" type="image/avif">
-            <img src="../logo-icon.png" alt="" class="footer-icon">
-          </picture>
-          <picture>
-            <source srcset="../logo-wordmark.avif" type="image/avif">
-            <img src="../logo-wordmark.png" alt="The Reel Recipe" class="footer-wm">
-          </picture>
-        </a>
-        <p class="footer-tag">Viral content. Real results</p>
-      </div>
-      <div class="footer-bottom">
-        <nav class="footer-nav">
-          <a href="./courses.html" class="footer-link">Courses</a>
-          <a href="./refund-policy.html" class="footer-link">Refund Policy</a>
-          <a href="./terms.html" class="footer-link">Terms</a>
-          <a href="./contact.html" class="footer-link">Contact</a>
-        </nav>
-        <div class="footer-end">
-          <div class="footer-socials">
-            <a href="https://instagram.com/thereelrecipe" target="_blank" rel="noopener noreferrer" class="fsoc" aria-label="Instagram">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-            </a>
-            <a href="https://tiktok.com/@thereelrecipe" target="_blank" rel="noopener noreferrer" class="fsoc" aria-label="TikTok">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V9.42a8.16 8.16 0 004.76 1.52V7.49a4.81 4.81 0 01-1-.8z"/></svg>
-            </a>
-          </div>
-          <p class="footer-copy" id="footerCopy"></p>
+          <p class="lf-note">
+            No account yet? Browse <a href="./courses.html">our courses</a> and enrol — you'll receive login credentials by email after purchasing an online course.
+          </p>
         </div>
       </div>
+
     </div>
-  </footer>
+  </main>
 
   <script type="module">
     import { login, isAuthenticated } from './auth.js';
 
-    /* Already logged in → go straight to dashboard */
-    if (isAuthenticated()) {
-      window.location.href = './my-learning.html';
-    }
+    if (isAuthenticated()) window.location.href = './my-learning.html';
 
     const form  = document.getElementById('login-form');
     const errEl = document.getElementById('login-error');
     const btn   = document.getElementById('login-btn');
 
-    form.addEventListener('submit', async (e) => {
+    form.addEventListener('submit', (e) => {
       e.preventDefault();
       errEl.classList.remove('visible');
       btn.textContent = 'Logging in…';
       btn.disabled = true;
 
-      const email = document.getElementById('email').value.trim();
-      const pw    = document.getElementById('password').value;
+      const ok = login(
+        document.getElementById('email').value.trim(),
+        document.getElementById('password').value
+      );
 
-      const ok = login(email, pw);
       if (ok) {
         window.location.href = './my-learning.html';
       } else {
@@ -293,35 +358,29 @@
       }
     });
 
-    /* Navbar */
-    const navbar  = document.getElementById('navbar');
-    const menuBtn = document.getElementById('menuBtn');
-    const iconMenu = document.getElementById('iconMenu');
-    const iconX   = document.getElementById('iconX');
+    const navbar     = document.getElementById('navbar');
+    const menuBtn    = document.getElementById('menuBtn');
+    const iconMenu   = document.getElementById('iconMenu');
+    const iconX      = document.getElementById('iconX');
     const mobileMenu = document.getElementById('mobileMenu');
 
     window.addEventListener('scroll', () => {
       navbar.classList.toggle('scrolled', window.scrollY > 50);
     }, { passive: true });
 
-    if (menuBtn) {
-      menuBtn.addEventListener('click', () => {
-        const open = mobileMenu.classList.toggle('open');
-        iconMenu.style.display = open ? 'none'  : 'block';
-        iconX.style.display    = open ? 'block' : 'none';
-        navbar.classList.toggle('menu-open', open);
-      });
-    }
+    menuBtn.addEventListener('click', () => {
+      const open = mobileMenu.classList.toggle('open');
+      iconMenu.style.display = open ? 'none'  : 'block';
+      iconX.style.display    = open ? 'block' : 'none';
+      navbar.classList.toggle('menu-open', open);
+    });
 
-    window.closeMobile = function() {
+    window.closeMobile = function () {
       mobileMenu.classList.remove('open');
-      if (iconMenu) iconMenu.style.display = 'block';
-      if (iconX)    iconX.style.display    = 'none';
+      iconMenu.style.display = 'block';
+      iconX.style.display    = 'none';
       navbar.classList.remove('menu-open');
     };
-
-    document.getElementById('footerCopy').textContent =
-      `© ${new Date().getFullYear()} The Reel Recipe. All rights reserved.`;
   </script>
 </body>
 </html>

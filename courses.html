@@ -11,164 +11,200 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" href="../fonts/vip-hala-bold.otf" as="font" type="font/otf" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;0,900;1,700;1,800&family=Figtree:wght@300;400;500;600&family=Cairo:wght@400;500;600;700;800&display=block" rel="stylesheet">
-
   <link rel="stylesheet" href="../styles.css">
 
   <style>
+    /* ── Hero ── */
     .courses-hero {
-      padding: clamp(120px, 15vw, 180px) 0 clamp(48px, 6vw, 80px);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .courses-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 20px;
-      padding: clamp(48px, 6vw, 80px) 0;
-    }
-
-    .course-card {
-      display: flex;
-      flex-direction: column;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--r-lg);
-      overflow: hidden;
-      transition: border-color 0.22s ease, transform 0.22s var(--expo);
-    }
-    .course-card:hover {
-      border-color: var(--border-2);
-      transform: translateY(-3px);
-    }
-
-    .course-card-thumb {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      background: var(--surface-2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      padding: clamp(120px, 16vw, 196px) 0 clamp(48px, 6vw, 72px);
       border-bottom: 1px solid var(--border);
       position: relative;
       overflow: hidden;
     }
 
-    .course-card-thumb::after {
+    .courses-hero::after {
       content: '';
       position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at 70% 60%, oklch(74% 0.17 168 / 0.08) 0%, transparent 65%);
+      top: 10%; right: -8%;
+      width: 55%; height: 70%;
+      background: radial-gradient(ellipse at center, oklch(74% 0.17 168 / 0.06) 0%, transparent 65%);
+      pointer-events: none; z-index: 0;
     }
 
-    .thumb-placeholder {
+    .courses-hero .container { position: relative; z-index: 1; }
+
+    .courses-hl {
       font-family: var(--fd);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
+      font-weight: 800;
       text-transform: uppercase;
-      color: var(--border-2);
-    }
-
-    .course-card-body {
-      padding: 22px 22px 20px;
+      letter-spacing: -0.03em;
+      line-height: 0.87;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      flex: 1;
+      margin-bottom: clamp(28px, 3.5vw, 48px);
     }
 
-    .course-card-badges {
+    .chl-1 {
+      font-size: clamp(54px, 9.5vw, 128px);
+      color: var(--text-2);
+      font-style: italic;
+    }
+
+    .chl-2 {
+      font-size: clamp(88px, 16vw, 216px);
+      color: var(--text);
+      line-height: 0.82;
+    }
+
+    .hero-foot {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: clamp(20px, 3vw, 40px);
       flex-wrap: wrap;
     }
+
+    /* ── Course list — editorial numbered rows ── */
+    .course-list {
+      display: flex;
+      flex-direction: column;
+      padding-bottom: clamp(64px, 9vw, 120px);
+    }
+
+    .cr {
+      display: grid;
+      grid-template-columns: clamp(56px, 7vw, 84px) 1fr auto;
+      align-items: start;
+      gap: clamp(16px, 3vw, 44px);
+      padding: clamp(28px, 4.5vw, 52px) 0;
+      border-top: 1px solid var(--border);
+      transition: background 0.2s ease;
+    }
+
+    .cr:last-child { border-bottom: 1px solid var(--border); }
+    .cr:hover { background: oklch(74% 0.17 168 / 0.03); }
+
+    .cr-n {
+      font-family: var(--fd);
+      font-size: clamp(38px, 6vw, 72px);
+      font-weight: 800;
+      line-height: 1;
+      color: var(--border-2);
+      user-select: none;
+      padding-top: 2px;
+      transition: color 0.2s ease;
+    }
+
+    .cr:hover .cr-n { color: var(--accent); }
+
+    .cr-body { display: flex; flex-direction: column; gap: 10px; }
+
+    .cr-top {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .cr-title {
+      font-family: var(--fd);
+      font-size: clamp(26px, 3.8vw, 48px);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: -0.015em;
+      line-height: 1;
+      color: var(--text);
+      transition: color 0.2s ease;
+    }
+
+    .cr:hover .cr-title { color: var(--accent); }
 
     .type-badge {
       display: inline-flex;
       align-items: center;
-      gap: 5px;
       font-size: 10px;
       font-weight: 800;
-      letter-spacing: 0.16em;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
       padding: 3px 10px;
       border-radius: 4px;
+      flex-shrink: 0;
+      position: relative;
+      top: -2px;
     }
+
     .type-badge--online {
       color: var(--accent);
       background: oklch(74% 0.17 168 / 0.12);
-      border: 1px solid oklch(74% 0.17 168 / 0.28);
+      border: 1px solid oklch(74% 0.17 168 / 0.3);
     }
+
     .type-badge--physical {
       color: oklch(80% 0.16 55);
       background: oklch(80% 0.16 55 / 0.1);
       border: 1px solid oklch(80% 0.16 55 / 0.28);
     }
 
-    .course-card-title {
-      font-family: var(--fd);
-      font-size: clamp(22px, 2.5vw, 28px);
-      font-weight: 800;
+    .cr-blurb {
+      font-size: clamp(13px, 1.4vw, 15px);
+      color: oklch(82% 0.008 278);
+      line-height: 1.72;
+      max-width: 52ch;
+    }
+
+    .cr-venue {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      letter-spacing: -0.01em;
-      line-height: 1.05;
-      color: var(--text);
+      color: oklch(70% 0.012 278);
     }
 
-    .course-card-blurb {
-      font-size: 14px;
-      color: oklch(88% 0.005 278);
-      line-height: 1.65;
-      flex: 1;
-    }
-
-    .course-card-meta {
+    .cr-action {
       display: flex;
       flex-direction: column;
+      align-items: flex-end;
+      gap: 14px;
+      padding-top: 2px;
+      min-width: 140px;
+    }
+
+    .cr-price-block {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
       gap: 2px;
-      padding-top: 6px;
-      border-top: 1px solid var(--border);
     }
 
-    .course-card-venue {
-      font-size: 12px;
-      color: var(--text-2);
-    }
-
-    .course-card-footer {
-      padding: 0 22px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .course-price-block {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .course-price {
+    .cr-price {
       font-family: var(--fd);
-      font-size: clamp(26px, 3vw, 34px);
+      font-size: clamp(28px, 3.5vw, 44px);
       font-weight: 800;
       letter-spacing: -0.02em;
       line-height: 1;
       color: var(--text);
     }
 
-    .price-vat-note {
-      font-size: 11px;
-      color: var(--text-2);
-      margin-top: 2px;
+    .cr-vat { font-size: 11px; color: var(--text-2); }
+
+    @media (max-width: 720px) {
+      .cr { grid-template-columns: clamp(44px, 9vw, 60px) 1fr; }
+
+      .cr-action {
+        grid-column: 1 / -1;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 8px;
+        padding-left: calc(clamp(44px, 9vw, 60px) + clamp(16px, 3vw, 44px));
+        min-width: unset;
+      }
+
+      .cr-price-block { align-items: flex-start; }
     }
 
-    @media (max-width: 640px) {
-      .courses-grid { grid-template-columns: 1fr; }
-      .course-card-footer { flex-direction: column; align-items: stretch; }
-      .course-card-footer .btn-primary { justify-content: center; }
+    @media (max-width: 480px) {
+      .cr-action { padding-left: 0; flex-direction: column; align-items: flex-start; }
+      .cr-action .btn-primary { width: 100%; justify-content: center; }
     }
   </style>
 </head>
@@ -176,7 +212,6 @@
 <body>
   <a href="#main-content" class="skip-link">Skip to content</a>
 
-  <!-- ===== NAVBAR ===== -->
   <div class="navbar-wrap" id="navbar-wrap">
     <nav class="navbar" id="navbar">
       <div class="nb-content">
@@ -190,15 +225,13 @@
             <img src="../logo-wordmark.png" alt="The Reel Recipe" class="nb-logo-wordmark">
           </picture>
         </a>
-
-        <div class="nb-links" id="nb-links">
+        <div class="nb-links">
           <a href="./courses.html" class="nb-link nb-link--courses">Courses</a>
           <a href="./contact.html" class="nb-link">Contact</a>
           <a href="./login.html" class="nb-link" id="nav-login">Login</a>
           <a href="./my-learning.html" class="nb-link" id="nav-mylearning" style="display:none">My Learning</a>
           <button class="nb-link" id="nav-logout" style="display:none;background:none;border:none;cursor:pointer;font:inherit;color:inherit;padding:0;">Log out</button>
         </div>
-
         <div class="nb-right-mobile">
           <button type="button" class="nb-menu-btn" id="menuBtn" aria-label="Toggle menu">
             <svg id="iconMenu" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -209,7 +242,6 @@
     </nav>
   </div>
 
-  <!-- Mobile menu -->
   <div class="mobile-menu" id="mobileMenu">
     <div class="mm-header">
       <picture>
@@ -231,32 +263,30 @@
 
   <main id="main-content">
 
-    <!-- ===== HERO ===== -->
     <section class="courses-hero">
       <div class="container">
         <div class="section-label fade-up" style="animation-delay:.1s">TRR Learning</div>
-        <h1 class="section-title fade-up" style="animation-delay:.22s">
-          Our<br>
-          <em style="font-style:italic; color:var(--accent)">Courses</em>
+        <h1 class="courses-hl">
+          <span class="chl-1 fade-up" style="animation-delay:.2s">All</span>
+          <span class="chl-2 fade-up" style="animation-delay:.32s">Courses</span>
         </h1>
-        <p class="section-sub fade-up" style="animation-delay:.34s;max-width:52ch">
-          Online courses and in-person workshops on viral content creation — built from 500M+ real views
-        </p>
+        <div class="hero-foot fade-up" style="animation-delay:.44s">
+          <div class="hero-accent-line" style="margin:0"></div>
+          <p class="hero-sub" style="margin:0;max-width:46ch">
+            Online courses and in-person workshops on viral content — built from 500M+ real views
+          </p>
+        </div>
       </div>
     </section>
 
-    <!-- ===== CATALOGUE ===== -->
-    <section class="section" style="padding-top:0">
+    <section style="padding-top:0">
       <div class="container">
-        <div class="courses-grid" id="courses-grid">
-          <!-- populated by JS -->
-        </div>
+        <div class="course-list" id="courses-list"></div>
       </div>
     </section>
 
   </main>
 
-  <!-- ===== FOOTER ===== -->
   <footer class="footer">
     <div class="container">
       <div class="footer-top">
@@ -298,48 +328,42 @@
     import { COURSES, formatPrice } from './courses-data.js';
     import { isAuthenticated, logout } from './auth.js';
 
-    /* Auth-aware nav */
     const authed = isAuthenticated();
-    document.getElementById('nav-login').style.display    = authed ? 'none'  : '';
-    document.getElementById('nav-mylearning').style.display = authed ? '' : 'none';
-    document.getElementById('nav-logout').style.display   = authed ? '' : 'none';
-    document.getElementById('mob-login').style.display    = authed ? 'none'  : '';
-    document.getElementById('mob-mylearning').style.display = authed ? '' : 'none';
-    document.getElementById('mob-logout').style.display   = authed ? '' : 'none';
+    document.getElementById('nav-login').style.display      = authed ? 'none' : '';
+    document.getElementById('nav-mylearning').style.display = authed ? ''     : 'none';
+    document.getElementById('nav-logout').style.display     = authed ? ''     : 'none';
+    document.getElementById('mob-login').style.display      = authed ? 'none' : '';
+    document.getElementById('mob-mylearning').style.display = authed ? ''     : 'none';
+    document.getElementById('mob-logout').style.display     = authed ? ''     : 'none';
     document.getElementById('nav-logout').addEventListener('click', logout);
     document.getElementById('mob-logout').addEventListener('click', logout);
 
-    /* Render catalogue */
-    const grid = document.getElementById('courses-grid');
+    const list = document.getElementById('courses-list');
+
     COURSES.forEach((course, i) => {
-      const typeLabel = course.type === 'online' ? 'Online' : 'In-person';
+      const typeLabel  = course.type === 'online' ? 'Online' : 'In-person';
       const badgeClass = course.type === 'online' ? 'type-badge--online' : 'type-badge--physical';
-      const venueLine = (course.venue || course.date)
-        ? `<div class="course-card-meta">
-             ${course.venue ? `<span class="course-card-venue">${course.venue}</span>` : ''}
-             ${course.date  ? `<span class="course-card-venue">${course.date}</span>`  : ''}
-           </div>`
+      const venueLine  = (course.venue || course.date)
+        ? `<div class="cr-venue">${[course.venue, course.date].filter(Boolean).join(' · ')}</div>`
         : '';
 
-      const card = document.createElement('article');
-      card.className = 'course-card scroll-reveal';
-      card.style.transitionDelay = `${i * 0.07}s`;
-      card.innerHTML = `
-        <div class="course-card-thumb" aria-hidden="true">
-          <span class="thumb-placeholder">Thumbnail TBA</span>
-        </div>
-        <div class="course-card-body">
-          <div class="course-card-badges">
+      const row = document.createElement('article');
+      row.className = 'cr scroll-reveal';
+      row.style.transitionDelay = `${i * 0.07}s`;
+      row.innerHTML = `
+        <div class="cr-n" aria-hidden="true">${String(i + 1).padStart(2, '0')}</div>
+        <div class="cr-body">
+          <div class="cr-top">
+            <h2 class="cr-title">${course.title}</h2>
             <span class="type-badge ${badgeClass}">${typeLabel}</span>
           </div>
-          <h2 class="course-card-title">${course.title}</h2>
-          <p class="course-card-blurb">${course.blurb}</p>
+          <p class="cr-blurb">${course.blurb}</p>
           ${venueLine}
         </div>
-        <div class="course-card-footer">
-          <div class="course-price-block">
-            <span class="course-price">${formatPrice(course.priceEGP)}</span>
-            <span class="price-vat-note">Price includes VAT</span>
+        <div class="cr-action">
+          <div class="cr-price-block">
+            <span class="cr-price">${formatPrice(course.priceEGP)}</span>
+            <span class="cr-vat">incl. VAT</span>
           </div>
           <a href="./checkout.html?course=${encodeURIComponent(course.id)}" class="btn-primary">
             Enrol
@@ -347,39 +371,36 @@
           </a>
         </div>
       `;
-      grid.appendChild(card);
+      list.appendChild(row);
     });
 
-    /* Shared page behaviours */
-    const navbar  = document.getElementById('navbar');
-    const menuBtn = document.getElementById('menuBtn');
-    const iconMenu = document.getElementById('iconMenu');
-    const iconX   = document.getElementById('iconX');
+    const navbar     = document.getElementById('navbar');
+    const menuBtn    = document.getElementById('menuBtn');
+    const iconMenu   = document.getElementById('iconMenu');
+    const iconX      = document.getElementById('iconX');
     const mobileMenu = document.getElementById('mobileMenu');
 
     window.addEventListener('scroll', () => {
       navbar.classList.toggle('scrolled', window.scrollY > 50);
     }, { passive: true });
 
-    if (menuBtn) {
-      menuBtn.addEventListener('click', () => {
-        const open = mobileMenu.classList.toggle('open');
-        iconMenu.style.display = open ? 'none'  : 'block';
-        iconX.style.display    = open ? 'block' : 'none';
-        navbar.classList.toggle('menu-open', open);
-      });
-    }
+    menuBtn.addEventListener('click', () => {
+      const open = mobileMenu.classList.toggle('open');
+      iconMenu.style.display = open ? 'none'  : 'block';
+      iconX.style.display    = open ? 'block' : 'none';
+      navbar.classList.toggle('menu-open', open);
+    });
 
-    window.closeMobile = function() {
+    window.closeMobile = function () {
       mobileMenu.classList.remove('open');
-      if (iconMenu) iconMenu.style.display = 'block';
-      if (iconX)    iconX.style.display    = 'none';
+      iconMenu.style.display = 'block';
+      iconX.style.display    = 'none';
       navbar.classList.remove('menu-open');
     };
 
     const ro = new IntersectionObserver(entries => {
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.1, rootMargin: '-20px' });
+    }, { threshold: 0.08, rootMargin: '-20px' });
     document.querySelectorAll('.scroll-reveal').forEach(el => ro.observe(el));
 
     document.getElementById('footerCopy').textContent =
