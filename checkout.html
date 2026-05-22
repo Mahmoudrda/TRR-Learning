@@ -19,7 +19,6 @@
     .trust-bar {
       border-bottom: 1px solid var(--border);
       padding: 14px 0;
-      margin-bottom: 0;
     }
 
     .trust-bar-inner {
@@ -41,6 +40,7 @@
 
     .trust-item svg { color: var(--accent); flex-shrink: 0; }
 
+    /* ── Layout ── */
     .checkout-wrap {
       min-height: calc(100svh - 68px);
       padding: clamp(48px, 6vw, 72px) 0 clamp(64px, 8vw, 100px);
@@ -53,6 +53,7 @@
       align-items: start;
     }
 
+    /* ── Summary sidebar ── */
     .checkout-summary {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -75,7 +76,7 @@
 
     .summary-title {
       font-family: var(--fd);
-      font-size: clamp(24px, 3vw, 36px);
+      font-size: clamp(22px, 3vw, 32px);
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: -0.015em;
@@ -110,10 +111,7 @@
       border: 1px solid oklch(80% 0.16 55 / 0.28);
     }
 
-    .summary-divider {
-      height: 1px;
-      background: var(--border);
-    }
+    .summary-divider { height: 1px; background: var(--border); }
 
     .summary-line {
       display: flex;
@@ -131,11 +129,7 @@
       gap: 12px;
     }
 
-    .total-label {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--text-2);
-    }
+    .total-label { font-size: 13px; font-weight: 700; color: var(--text-2); }
 
     .total-amount {
       font-family: var(--fd);
@@ -145,11 +139,7 @@
       color: var(--text);
     }
 
-    .vat-note {
-      font-size: 11px;
-      color: var(--text-2);
-      text-align: right;
-    }
+    .vat-note { font-size: 11px; color: var(--text-2); text-align: right; }
 
     .summary-refund-note {
       font-size: 12px;
@@ -159,16 +149,13 @@
       padding-top: 16px;
     }
 
-    .summary-refund-note a {
-      color: var(--accent);
-      text-decoration: underline;
-    }
+    .summary-refund-note a { color: var(--accent); text-decoration: underline; }
 
-    /* Payment area */
+    /* ── Main column ── */
     .checkout-main {
       display: flex;
       flex-direction: column;
-      gap: 24px;
+      gap: 32px;
     }
 
     .checkout-section-title {
@@ -181,6 +168,76 @@
       color: var(--text);
     }
 
+    /* ── Customer details form ── */
+    .details-block {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .details-block-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-2);
+      margin-bottom: 4px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group--full { grid-column: 1 / -1; }
+
+    .form-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-2);
+    }
+
+    .form-input {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 13px 16px;
+      font-family: inherit;
+      font-size: 15px;
+      color: var(--text);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      outline: none;
+      box-sizing: border-box;
+    }
+
+    .form-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px oklch(74% 0.17 168 / 0.15);
+    }
+
+    .form-input::placeholder { color: oklch(50% 0.008 278); }
+
+    .form-input.error { border-color: oklch(72% 0.18 25); }
+
+    .form-field-error {
+      font-size: 12px;
+      color: oklch(72% 0.18 25);
+      display: none;
+    }
+
+    .form-field-error.visible { display: block; }
+
+    /* ── Notice ── */
     .checkout-notice {
       display: flex;
       gap: 14px;
@@ -194,19 +251,11 @@
       line-height: 1.6;
     }
 
-    .checkout-notice-icon {
-      flex-shrink: 0;
-      margin-top: 1px;
-      color: var(--accent);
-    }
+    .checkout-notice-icon { flex-shrink: 0; margin-top: 1px; color: var(--accent); }
 
-    /* PAYMENT INTEGRATION MOUNT POINT */
+    /* ── Payment area ── */
     /* Egyptian gateway (Paymob / Fawry / Kashier) iframe or redirect mounts here later. */
     /* Amount/currency MUST be read from courses-data.js, never hard-coded here. */
-    #payment-container {
-      min-height: 64px;
-    }
-
     .pay-placeholder {
       padding: 24px 20px;
       background: var(--surface);
@@ -227,9 +276,20 @@
       color: var(--text-2);
     }
 
-    .pay-placeholder-sub {
-      font-size: 13px;
-      color: oklch(72% 0.012 278);
+    .pay-placeholder-sub { font-size: 13px; color: oklch(68% 0.012 278); }
+
+    .pay-section {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .pay-section-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-2);
     }
 
     #pay-btn {
@@ -237,12 +297,19 @@
       font-size: 15px;
       font-weight: 700;
       padding: 14px 28px;
-      background: var(--border-2);
-      color: oklch(60% 0.008 278);
       border: none;
       border-radius: var(--r);
       cursor: not-allowed;
       width: 100%;
+      transition: background 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+      background: var(--border-2);
+      color: oklch(60% 0.008 278);
+    }
+
+    #pay-btn.ready {
+      background: var(--accent);
+      color: var(--bg);
+      cursor: pointer;
     }
 
     /* DEMO ONLY — remove before going live */
@@ -252,17 +319,28 @@
       justify-content: center;
       gap: 6px;
       font-size: 12px;
-      color: oklch(72% 0.012 278);
+      color: oklch(68% 0.012 278);
       padding: 12px;
       border: 1px dashed var(--border);
       border-radius: var(--r);
+      text-align: center;
     }
 
-    .demo-simulate a {
+    .demo-simulate button {
+      background: none;
+      border: none;
+      font: inherit;
+      cursor: pointer;
       color: oklch(80% 0.16 55);
       text-decoration: underline;
       font-weight: 600;
+      padding: 0;
+      opacity: 0.4;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
     }
+
+    .demo-simulate button.ready { opacity: 1; pointer-events: auto; }
 
     .error-state {
       padding: clamp(100px, 12vw, 148px) 0;
@@ -270,13 +348,13 @@
     }
 
     @media (max-width: 768px) {
-      .checkout-layout {
-        grid-template-columns: 1fr;
-      }
-      .checkout-summary {
-        position: static;
-        order: -1;
-      }
+      .checkout-layout { grid-template-columns: 1fr; }
+      .checkout-summary { position: static; order: -1; }
+    }
+
+    @media (max-width: 480px) {
+      .form-grid { grid-template-columns: 1fr; }
+      .form-group--full { grid-column: 1; }
     }
   </style>
 </head>
@@ -284,7 +362,6 @@
 <body>
   <a href="#main-content" class="skip-link">Skip to content</a>
 
-  <!-- ===== NAVBAR ===== -->
   <div class="navbar-wrap" id="navbar-wrap">
     <nav class="navbar" id="navbar">
       <div class="nb-content">
@@ -298,7 +375,6 @@
             <img src="../logo-wordmark.png" alt="The Reel Recipe" class="nb-logo-wordmark">
           </picture>
         </a>
-
         <div class="nb-links" id="nb-links">
           <a href="./courses.html" class="nb-link nb-link--courses">Courses</a>
           <a href="./contact.html" class="nb-link">Contact</a>
@@ -306,7 +382,6 @@
           <a href="./my-learning.html" class="nb-link" id="nav-mylearning" style="display:none">My Learning</a>
           <button class="nb-link" id="nav-logout" style="display:none;background:none;border:none;cursor:pointer;font:inherit;color:inherit;padding:0;">Log out</button>
         </div>
-
         <div class="nb-right-mobile">
           <button type="button" class="nb-menu-btn" id="menuBtn" aria-label="Toggle menu">
             <svg id="iconMenu" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -317,7 +392,6 @@
     </nav>
   </div>
 
-  <!-- Mobile menu -->
   <div class="mobile-menu" id="mobileMenu">
     <div class="mm-header">
       <picture>
@@ -356,6 +430,7 @@
         </div>
       </div>
     </div>
+
     <div class="checkout-wrap">
       <div class="container" id="checkout-root">
         <!-- populated by JS -->
@@ -363,7 +438,6 @@
     </div>
   </main>
 
-  <!-- ===== FOOTER ===== -->
   <footer class="footer">
     <div class="container">
       <div class="footer-top">
@@ -405,7 +479,6 @@
     import { getCourseById, formatPrice } from './courses-data.js';
     import { isAuthenticated, logout } from './auth.js';
 
-    /* Auth-aware nav */
     const authed = isAuthenticated();
     document.getElementById('nav-login').style.display      = authed ? 'none' : '';
     document.getElementById('nav-mylearning').style.display = authed ? ''     : 'none';
@@ -416,26 +489,22 @@
     document.getElementById('nav-logout').addEventListener('click', logout);
     document.getElementById('mob-logout').addEventListener('click', logout);
 
-    /* Resolve course from query string */
-    const params = new URLSearchParams(window.location.search);
+    const params   = new URLSearchParams(window.location.search);
     const courseId = params.get('course');
-    const course = courseId ? getCourseById(courseId) : null;
-    const root = document.getElementById('checkout-root');
+    const course   = courseId ? getCourseById(courseId) : null;
+    const root     = document.getElementById('checkout-root');
 
     if (!course) {
       root.innerHTML = `
         <div class="error-state">
           <div class="section-label">Error</div>
           <h1 class="section-title">Course not found</h1>
-          <p class="section-sub" style="margin-top:16px">
-            <a href="./courses.html" class="btn-primary" style="display:inline-flex;margin-top:20px">
-              Browse courses
-            </a>
-          </p>
+          <a href="./courses.html" class="btn-primary" style="display:inline-flex;margin-top:24px">Browse courses</a>
         </div>`;
     } else {
-      const typeLabel  = course.type === 'online' ? 'Online' : 'In-person';
-      const badgeClass = course.type === 'online' ? 'type-badge--online' : 'type-badge--physical';
+      const isOnline   = course.type === 'online';
+      const typeLabel  = isOnline ? 'Online' : 'In-person';
+      const badgeClass = isOnline ? 'type-badge--online' : 'type-badge--physical';
       const venueLine  = course.venue
         ? `<span class="summary-line"><span>Venue</span><span>${course.venue}</span></span>`
         : '';
@@ -443,49 +512,77 @@
         ? `<span class="summary-line"><span>Date</span><span>${course.date}</span></span>`
         : '';
 
-      // DEMO ONLY — remove before going live ↓
-      const demoLink = `./order-confirmation.html?course=${encodeURIComponent(course.id)}`;
+      const confirmUrl = `./order-confirmation.html?course=${encodeURIComponent(course.id)}`;
 
       root.innerHTML = `
         <div class="checkout-layout">
 
-          <!-- Left: payment area -->
           <div class="checkout-main">
-            <h1 class="checkout-section-title">Complete your enrolment</h1>
+            <h1 class="checkout-section-title">Complete your<br>enrolment</h1>
+
+            <!-- Customer details -->
+            <div class="details-block">
+              <p class="details-block-title">Your details</p>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label class="form-label" for="first-name">First name</label>
+                  <input class="form-input" type="text" id="first-name" name="first-name"
+                    autocomplete="given-name" placeholder="Ahmed" required>
+                  <span class="form-field-error" id="err-first-name">Required</span>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="last-name">Last name</label>
+                  <input class="form-input" type="text" id="last-name" name="last-name"
+                    autocomplete="family-name" placeholder="Hassan" required>
+                  <span class="form-field-error" id="err-last-name">Required</span>
+                </div>
+                <div class="form-group form-group--full">
+                  <label class="form-label" for="email">Email</label>
+                  <input class="form-input" type="email" id="email" name="email"
+                    autocomplete="email" placeholder="you@example.com" required>
+                  <span class="form-field-error" id="err-email">Enter a valid email address</span>
+                </div>
+                <div class="form-group form-group--full">
+                  <label class="form-label" for="phone">Phone number</label>
+                  <input class="form-input" type="tel" id="phone" name="phone"
+                    autocomplete="tel" placeholder="+20 1XX XXX XXXX" required>
+                  <span class="form-field-error" id="err-phone">Enter a valid phone number</span>
+                </div>
+              </div>
+            </div>
 
             <div class="checkout-notice">
               <svg class="checkout-notice-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-              <span>You do not need an account to purchase. After payment, you'll receive your access by email.</span>
+              <span>You do not need an account to purchase. After payment we'll send your access details to the email above.</span>
             </div>
 
             <!-- PAYMENT INTEGRATION MOUNT POINT -->
             <!-- Egyptian gateway (Paymob / Fawry / Kashier) iframe or redirect mounts here later. -->
             <!-- Amount/currency MUST be read from courses-data.js, never hard-coded here. -->
-            <div id="payment-container">
+            <div class="pay-section">
+              <p class="pay-section-title">Payment</p>
               <div class="pay-placeholder">
                 <span class="pay-placeholder-label">Payment gateway</span>
                 <span class="pay-placeholder-sub">Paymob / Fawry / Kashier integration coming soon</span>
               </div>
+              <button id="pay-btn" disabled aria-disabled="true">Fill in your details to continue</button>
             </div>
 
-            <button id="pay-btn" disabled aria-disabled="true">Payment integration coming soon</button>
-
-            <!-- DEMO ONLY — this link is for prototype testing only. Remove before going live. -->
+            <!-- DEMO ONLY — remove before going live -->
             <div class="demo-simulate" aria-hidden="true">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
               Demo only —
-              <a href="${demoLink}">Simulate successful payment</a>
+              <button id="demo-btn" type="button">Simulate successful payment</button>
             </div>
           </div>
 
-          <!-- Right: order summary -->
           <aside class="checkout-summary">
             <span class="summary-label">Order summary</span>
             <h2 class="summary-title">${course.title}</h2>
             <div class="summary-type-row">
               <span class="type-badge ${badgeClass}">${typeLabel}</span>
             </div>
-            ${venueLine || dateLine
+            ${(venueLine || dateLine)
               ? `<div style="display:flex;flex-direction:column;gap:6px">${venueLine}${dateLine}</div>`
               : ''}
             <div class="summary-divider"></div>
@@ -497,7 +594,7 @@
               <p class="vat-note">Price includes VAT</p>
             </div>
             <p class="summary-refund-note">
-              You have a 14-day refund right under Egyptian Consumer Protection Law No. 181/2018.
+              You have a 14-day refund right under Egyptian Consumer Protection Law No.&nbsp;181/2018.
               For online courses, the right ends once you access a substantial part of the content.
               <a href="./refund-policy.html">Full Refund Policy →</a>
             </p>
@@ -505,13 +602,68 @@
 
         </div>
       `;
+
+      /* ── Form validation ── */
+      const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      function validateAll() {
+        const fn    = document.getElementById('first-name').value.trim();
+        const ln    = document.getElementById('last-name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        return fn && ln && emailRe.test(email) && phone.replace(/[\s\-+]/g, '').length >= 7;
+      }
+
+      function refreshState() {
+        const ok      = validateAll();
+        const payBtn  = document.getElementById('pay-btn');
+        const demoBtn = document.getElementById('demo-btn');
+        payBtn.disabled              = !ok;
+        payBtn.setAttribute('aria-disabled', String(!ok));
+        payBtn.classList.toggle('ready', ok);
+        payBtn.textContent = ok ? 'Payment integration coming soon' : 'Fill in your details to continue';
+        demoBtn.classList.toggle('ready', ok);
+      }
+
+      function showError(fieldId, errId, isInvalid) {
+        const input = document.getElementById(fieldId);
+        const err   = document.getElementById(errId);
+        input.classList.toggle('error', isInvalid);
+        err.classList.toggle('visible', isInvalid);
+      }
+
+      function validateField(id) {
+        if (id === 'email') {
+          const v = document.getElementById('email').value.trim();
+          showError('email', 'err-email', v.length > 0 && !emailRe.test(v));
+        } else if (id === 'phone') {
+          const v = document.getElementById('phone').value.trim();
+          showError('phone', 'err-phone', v.length > 0 && v.replace(/[\s\-+]/g, '').length < 7);
+        }
+      }
+
+      ['first-name', 'last-name', 'email', 'phone'].forEach(id => {
+        const el = document.getElementById(id);
+        el.addEventListener('input', () => { validateField(id); refreshState(); });
+        el.addEventListener('blur', () => validateField(id));
+      });
+
+      document.getElementById('demo-btn').addEventListener('click', () => {
+        if (!validateAll()) return;
+        sessionStorage.setItem('trr_buyer', JSON.stringify({
+          firstName: document.getElementById('first-name').value.trim(),
+          lastName:  document.getElementById('last-name').value.trim(),
+          email:     document.getElementById('email').value.trim(),
+          phone:     document.getElementById('phone').value.trim(),
+        }));
+        window.location.href = confirmUrl;
+      });
     }
 
-    /* Navbar */
-    const navbar  = document.getElementById('navbar');
-    const menuBtn = document.getElementById('menuBtn');
-    const iconMenu = document.getElementById('iconMenu');
-    const iconX   = document.getElementById('iconX');
+    const navbar     = document.getElementById('navbar');
+    const menuBtn    = document.getElementById('menuBtn');
+    const iconMenu   = document.getElementById('iconMenu');
+    const iconX      = document.getElementById('iconX');
     const mobileMenu = document.getElementById('mobileMenu');
 
     window.addEventListener('scroll', () => {
@@ -527,7 +679,7 @@
       });
     }
 
-    window.closeMobile = function() {
+    window.closeMobile = function () {
       mobileMenu.classList.remove('open');
       if (iconMenu) iconMenu.style.display = 'block';
       if (iconX)    iconX.style.display    = 'none';
