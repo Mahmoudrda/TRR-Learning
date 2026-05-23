@@ -32,7 +32,7 @@ export function isAuthenticated() {
 
 export function logout() {
   sessionStorage.removeItem(SESSION_KEY);
-  window.location.href = './courses.html';
+  window.location.href = './course.html';
 }
 
 export function guard() {

@@ -329,6 +329,122 @@
       .course-hero { justify-content: flex-start; min-height: unset; padding-top: 60px; }
       .course-hero-inner { flex: none; justify-content: flex-start; padding-top: 20px; padding-bottom: 12px; }
     }
+
+    /* ── Course catalogue ── */
+    .courses-hero {
+      padding: clamp(80px, 10vw, 120px) 0 clamp(48px, 6vw, 80px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      padding: clamp(48px, 6vw, 80px) 0;
+    }
+
+    .course-card {
+      display: flex;
+      flex-direction: column;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      transition: border-color 0.22s ease, transform 0.22s var(--expo);
+    }
+    .course-card:hover { border-color: var(--border-2); transform: translateY(-3px); }
+
+    .course-card-thumb {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: var(--surface-2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .course-card-thumb::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 70% 60%, oklch(74% 0.17 168 / 0.08) 0%, transparent 65%);
+    }
+
+    .thumb-placeholder {
+      font-family: var(--fd);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--border-2);
+    }
+
+    .course-card-body {
+      padding: 22px 22px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+    }
+
+    .course-card-badges { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+    .type-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 4px;
+    }
+    .type-badge--online  { color: var(--accent); background: oklch(74% 0.17 168 / 0.12); border: 1px solid oklch(74% 0.17 168 / 0.28); }
+    .type-badge--physical { color: oklch(80% 0.16 55); background: oklch(80% 0.16 55 / 0.1); border: 1px solid oklch(80% 0.16 55 / 0.28); }
+
+    .course-card-title {
+      font-family: var(--fd);
+      font-size: clamp(22px, 2.5vw, 28px);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      line-height: 1.05;
+      color: var(--text);
+    }
+
+    .course-card-blurb { font-size: 14px; color: oklch(88% 0.005 278); line-height: 1.65; flex: 1; }
+
+    .course-card-meta { display: flex; flex-direction: column; gap: 2px; padding-top: 6px; border-top: 1px solid var(--border); }
+    .course-card-venue { font-size: 12px; color: var(--text-2); }
+
+    .course-card-footer {
+      padding: 0 22px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .course-price-block { display: flex; flex-direction: column; }
+    .course-price {
+      font-family: var(--fd);
+      font-size: clamp(26px, 3vw, 34px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      color: var(--text);
+    }
+    .price-vat-note { font-size: 11px; color: var(--text-2); margin-top: 2px; }
+
+    @media (max-width: 640px) {
+      .courses-grid { grid-template-columns: 1fr; }
+      .course-card-footer { flex-direction: column; align-items: stretch; }
+      .course-card-footer .btn-primary { justify-content: center; }
+    }
   </style>
 </head>
 
@@ -361,6 +477,9 @@
           <a href="./#about" class="nb-link">About</a>
           <a href="./#contact" class="nb-link">Contact</a>
           <a href="./course.html" class="nb-link nb-link--courses">Courses</a>
+          <a href="./login.html" class="nb-link" id="nav-login">Login</a>
+          <a href="./my-learning.html" class="nb-link" id="nav-mylearning" style="display:none">My Learning</a>
+          <button class="nb-link" id="nav-logout" style="display:none;background:none;border:none;cursor:pointer;font:inherit;color:inherit;padding:0;">Log out</button>
           <a href="https://airtable.com/appj3aOW7Qep6cPSx/pagvALyDfWmsXf89I/form" target="_blank" rel="noopener noreferrer" class="nb-cta">Enroll Now</a>
         </div>
 
@@ -391,6 +510,9 @@
       <a href="./#about" class="mobile-link" onclick="closeMobile()">About</a>
       <a href="./#contact" class="mobile-link" onclick="closeMobile()">Contact</a>
       <a href="./course.html" class="mobile-link mobile-link--courses" onclick="closeMobile()">Courses</a>
+      <a href="./login.html" class="mobile-link" id="mob-login" onclick="closeMobile()">Login</a>
+      <a href="./my-learning.html" class="mobile-link" id="mob-mylearning" style="display:none" onclick="closeMobile()">My Learning</a>
+      <button class="mobile-link" id="mob-logout" style="display:none;background:none;border:none;cursor:pointer;font:inherit;text-align:left;width:100%;padding:10px 0;border-bottom:1px solid var(--border);" onclick="closeMobile()">Log out</button>
       <a href="https://airtable.com/appj3aOW7Qep6cPSx/pagvALyDfWmsXf89I/form" target="_blank" rel="noopener noreferrer" class="mobile-cta">Enroll Now</a>
     </div>
   </div>
@@ -679,6 +801,28 @@
       </div>
     </section>
 
+    <!-- ===== ALL COURSES ===== -->
+    <section class="courses-hero">
+      <div class="container">
+        <div class="section-label fade-up" style="animation-delay:.1s">TRR Learning</div>
+        <h2 class="section-title fade-up" style="animation-delay:.22s">
+          All<br>
+          <em style="font-style:italic; color:var(--accent)">Courses</em>
+        </h2>
+        <p class="section-sub fade-up" style="animation-delay:.34s;max-width:52ch">
+          Online courses and in-person workshops on viral content creation — built from 500M+ real views
+        </p>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:0">
+      <div class="container">
+        <div class="courses-grid" id="courses-grid">
+          <!-- populated by JS -->
+        </div>
+      </div>
+    </section>
+
     <!-- ===== FOOTER ===== -->
     <footer class="footer">
       <div class="container">
@@ -700,6 +844,8 @@
             <a href="./#services" class="footer-link">Services</a>
             <a href="./#about" class="footer-link">About</a>
             <a href="./#contact" class="footer-link">Contact</a>
+            <a href="./refund-policy.html" class="footer-link">Refund Policy</a>
+            <a href="./terms.html" class="footer-link">Terms</a>
           </nav>
           <div class="footer-end">
             <div class="footer-socials">
@@ -719,5 +865,59 @@
   </main>
 
   <script src="course.js"></script>
+  <script type="module">
+    import { COURSES, formatPrice } from './courses-data.js';
+    import { isAuthenticated, logout } from './auth.js';
+
+    const authed = isAuthenticated();
+    document.getElementById('nav-login').style.display      = authed ? 'none' : '';
+    document.getElementById('nav-mylearning').style.display = authed ? '' : 'none';
+    document.getElementById('nav-logout').style.display     = authed ? '' : 'none';
+    document.getElementById('mob-login').style.display      = authed ? 'none' : '';
+    document.getElementById('mob-mylearning').style.display = authed ? '' : 'none';
+    document.getElementById('mob-logout').style.display     = authed ? '' : 'none';
+    document.getElementById('nav-logout').addEventListener('click', logout);
+    document.getElementById('mob-logout').addEventListener('click', logout);
+
+    const grid = document.getElementById('courses-grid');
+    COURSES.forEach((course, i) => {
+      const typeLabel  = course.type === 'online' ? 'Online' : 'In-person';
+      const badgeClass = course.type === 'online' ? 'type-badge--online' : 'type-badge--physical';
+      const venueLine  = (course.venue || course.date)
+        ? `<div class="course-card-meta">
+             ${course.venue ? `<span class="course-card-venue">${course.venue}</span>` : ''}
+             ${course.date  ? `<span class="course-card-venue">${course.date}</span>`  : ''}
+           </div>`
+        : '';
+
+      const card = document.createElement('article');
+      card.className = 'course-card scroll-reveal';
+      card.style.transitionDelay = `${i * 0.07}s`;
+      card.innerHTML = `
+        <div class="course-card-thumb" aria-hidden="true">
+          <span class="thumb-placeholder">Thumbnail TBA</span>
+        </div>
+        <div class="course-card-body">
+          <div class="course-card-badges">
+            <span class="type-badge ${badgeClass}">${typeLabel}</span>
+          </div>
+          <h2 class="course-card-title">${course.title}</h2>
+          <p class="course-card-blurb">${course.blurb}</p>
+          ${venueLine}
+        </div>
+        <div class="course-card-footer">
+          <div class="course-price-block">
+            <span class="course-price">${formatPrice(course.priceEGP)}</span>
+            <span class="price-vat-note">Price includes VAT</span>
+          </div>
+          <a href="./checkout.html?course=${encodeURIComponent(course.id)}" class="btn-primary">
+            Enrol
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+  </script>
 </body>
 </html>
