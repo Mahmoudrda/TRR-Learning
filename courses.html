@@ -3,436 +3,172 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Foundations of Viral Content | TRR Learning</title>
-  <meta name="description" content="15 chapters on how viral content actually works — hooks, psychology, storytelling, editing, production, and distribution.">
+  <title>Courses | The Reel Recipe</title>
+  <meta name="description" content="Browse all TRR Learning courses — online and in-person workshops on viral content creation.">
   <meta name="theme-color" content="#090b1a">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" href="../fonts/vip-hala-bold.otf" as="font" type="font/otf" crossorigin>
+  <link rel="preload" href="./fonts/vip-hala-bold.otf" as="font" type="font/otf" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;0,900;1,700;1,800&family=Figtree:wght@300;400;500;600&family=Cairo:wght@400;500;600;700;800&display=block" rel="stylesheet">
-  <link rel="stylesheet" href="../styles.css">
+
+  <link rel="stylesheet" href="./styles.css">
 
   <style>
-    /* ── Hero ── */
-    .course-hero {
-      padding: clamp(120px, 16vw, 200px) 0 clamp(56px, 7vw, 88px);
+    .courses-hero {
+      padding: clamp(120px, 15vw, 180px) 0 clamp(48px, 6vw, 80px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      padding: clamp(48px, 6vw, 80px) 0;
+    }
+
+    .course-card {
+      display: flex;
+      flex-direction: column;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      transition: border-color 0.22s ease, transform 0.22s var(--expo);
+    }
+    .course-card:hover {
+      border-color: var(--border-2);
+      transform: translateY(-3px);
+    }
+
+    .course-card-thumb {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: var(--surface-2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       border-bottom: 1px solid var(--border);
       position: relative;
       overflow: hidden;
     }
 
-    .course-hero::after {
+    .course-card-thumb::after {
       content: '';
       position: absolute;
-      top: 0; right: -10%;
-      width: 60%; height: 80%;
-      background: radial-gradient(ellipse at 70% 30%, oklch(74% 0.17 168 / 0.07) 0%, transparent 60%);
-      pointer-events: none;
+      inset: 0;
+      background: radial-gradient(ellipse at 70% 60%, oklch(74% 0.17 168 / 0.08) 0%, transparent 65%);
     }
 
-    .course-hero .container { position: relative; z-index: 1; }
-
-    .course-hl {
+    .thumb-placeholder {
       font-family: var(--fd);
-      font-weight: 800;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      letter-spacing: -0.03em;
-      line-height: 0.87;
+      color: var(--border-2);
+    }
+
+    .course-card-body {
+      padding: 22px 22px 20px;
       display: flex;
       flex-direction: column;
-      margin-bottom: clamp(24px, 3.5vw, 44px);
+      gap: 10px;
+      flex: 1;
     }
 
-    .chl-1 {
-      font-size: clamp(52px, 9vw, 124px);
-      color: var(--text-2);
-      font-style: italic;
-    }
-
-    .chl-2 {
-      font-size: clamp(64px, 12vw, 168px);
-      color: var(--text);
-      line-height: 0.84;
-    }
-
-    .hero-stats {
+    .course-card-badges {
       display: flex;
       align-items: center;
-      gap: clamp(24px, 4vw, 48px);
+      gap: 8px;
       flex-wrap: wrap;
     }
 
-    .hero-stat {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-    }
-
-    .hero-stat-n {
-      font-family: var(--fd);
-      font-size: clamp(26px, 3.5vw, 40px);
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      color: var(--text);
-      line-height: 1;
-    }
-
-    .hero-stat-label {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--text-2);
-    }
-
-    .hero-divider {
-      width: 1px;
-      height: 36px;
-      background: var(--border);
-    }
-
-    .hero-pitch {
-      font-size: clamp(14px, 1.6vw, 17px);
-      color: oklch(80% 0.008 278);
-      line-height: 1.72;
-      max-width: 52ch;
-      margin-top: clamp(20px, 3vw, 32px);
-    }
-
-    /* ── Version picker ── */
-    .version-section {
-      padding: clamp(48px, 7vw, 88px) 0 0;
-    }
-
-    .section-eyebrow {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 20px;
-    }
-
-    .version-heading {
-      font-family: var(--fd);
-      font-size: clamp(28px, 4vw, 48px);
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: -0.02em;
-      color: var(--text);
-      margin-bottom: clamp(24px, 3.5vw, 40px);
-    }
-
-    .version-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: clamp(12px, 2vw, 24px);
-    }
-
-    .version-card {
-      background: var(--surface);
-      border: 1.5px solid var(--border);
-      border-radius: var(--r-lg);
-      padding: clamp(22px, 3vw, 36px);
-      cursor: pointer;
-      transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-      user-select: none;
-      position: relative;
-    }
-
-    .version-card:hover {
-      border-color: var(--border-2);
-    }
-
-    .version-card.selected {
-      border-color: var(--accent);
-      background: oklch(74% 0.17 168 / 0.05);
-      box-shadow: 0 0 0 1px oklch(74% 0.17 168 / 0.2);
-    }
-
-    .version-card-top {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .version-radio {
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      border: 1.5px solid var(--border-2);
-      display: flex;
+    .type-badge {
+      display: inline-flex;
       align-items: center;
-      justify-content: center;
-      transition: border-color 0.2s ease, background 0.2s ease;
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-
-    .version-card.selected .version-radio {
-      border-color: var(--accent);
-      background: var(--accent);
-    }
-
-    .version-radio-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--bg);
-      opacity: 0;
-      transition: opacity 0.15s ease;
-    }
-
-    .version-card.selected .version-radio-dot { opacity: 1; }
-
-    .version-type-badge {
+      gap: 5px;
       font-size: 10px;
       font-weight: 800;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
       padding: 3px 10px;
       border-radius: 4px;
     }
-
-    .version-type-badge--online {
+    .type-badge--online {
       color: var(--accent);
       background: oklch(74% 0.17 168 / 0.12);
-      border: 1px solid oklch(74% 0.17 168 / 0.3);
+      border: 1px solid oklch(74% 0.17 168 / 0.28);
     }
-
-    .version-type-badge--physical {
+    .type-badge--physical {
       color: oklch(80% 0.16 55);
       background: oklch(80% 0.16 55 / 0.1);
       border: 1px solid oklch(80% 0.16 55 / 0.28);
     }
 
-    .version-name {
+    .course-card-title {
       font-family: var(--fd);
-      font-size: clamp(22px, 3vw, 34px);
+      font-size: clamp(22px, 2.5vw, 28px);
       font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: -0.015em;
+      letter-spacing: -0.01em;
+      line-height: 1.05;
       color: var(--text);
-      line-height: 1;
     }
 
-    .version-desc {
-      font-size: clamp(13px, 1.4vw, 15px);
-      color: var(--text-2);
-      line-height: 1.68;
+    .course-card-blurb {
+      font-size: 14px;
+      color: oklch(88% 0.005 278);
+      line-height: 1.65;
+      flex: 1;
     }
 
-    .version-features {
+    .course-card-meta {
       display: flex;
       flex-direction: column;
-      gap: 8px;
-    }
-
-    .version-feature {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 13px;
-      color: oklch(80% 0.008 278);
-    }
-
-    .version-feature svg {
-      color: var(--accent);
-      flex-shrink: 0;
-    }
-
-    .version-price-block {
+      gap: 2px;
+      padding-top: 6px;
       border-top: 1px solid var(--border);
-      padding-top: 16px;
-      display: flex;
-      align-items: baseline;
-      gap: 8px;
     }
 
-    .version-price {
-      font-family: var(--fd);
-      font-size: clamp(28px, 3.5vw, 42px);
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      color: var(--text);
-      line-height: 1;
-    }
-
-    .version-vat {
-      font-size: 11px;
-      color: var(--text-2);
-    }
-
-    /* ── Curriculum ── */
-    .curriculum-section {
-      padding: clamp(56px, 8vw, 100px) 0 0;
-    }
-
-    .curriculum-header {
-      border-bottom: 1px solid var(--border);
-      padding-bottom: clamp(24px, 3.5vw, 36px);
-      margin-bottom: 0;
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .curriculum-title {
-      font-family: var(--fd);
-      font-size: clamp(28px, 4vw, 52px);
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: -0.02em;
-      color: var(--text);
-      line-height: 1;
-    }
-
-    .curriculum-count {
-      font-size: 13px;
-      color: var(--text-2);
-      white-space: nowrap;
-    }
-
-    .phase-row {
-      display: grid;
-      grid-template-columns: clamp(100px, 14vw, 160px) 1fr;
-      gap: clamp(20px, 3.5vw, 56px);
-      padding: clamp(28px, 4vw, 48px) 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .phase-label-col {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      padding-top: 4px;
-    }
-
-    .phase-num {
-      font-family: var(--fd);
-      font-size: clamp(42px, 6vw, 72px);
-      font-weight: 800;
-      color: var(--border-2);
-      line-height: 1;
-    }
-
-    .phase-name {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--text-2);
-      line-height: 1.5;
-    }
-
-    .phase-chapters {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-    }
-
-    .chapter-row {
-      display: flex;
-      align-items: baseline;
-      gap: 16px;
-      padding: 13px 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .chapter-row:last-child { border-bottom: none; }
-
-    .ch-num {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--border-2);
-      min-width: 28px;
-      letter-spacing: 0.06em;
-    }
-
-    .ch-title {
-      font-size: clamp(14px, 1.6vw, 16px);
-      color: var(--text);
-      font-weight: 500;
-      line-height: 1.4;
-    }
-
-    /* ── Enrol bar ── */
-    .enrol-section {
-      padding: clamp(40px, 6vw, 72px) 0 clamp(72px, 10vw, 120px);
-    }
-
-    .enrol-bar {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--r-lg);
-      padding: clamp(24px, 3.5vw, 40px) clamp(24px, 4vw, 48px);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      flex-wrap: wrap;
-    }
-
-    .enrol-bar-info { display: flex; flex-direction: column; gap: 4px; }
-
-    .enrol-bar-selected {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--accent);
-    }
-
-    .enrol-bar-name {
-      font-family: var(--fd);
-      font-size: clamp(20px, 2.8vw, 32px);
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: -0.015em;
-      color: var(--text);
-      line-height: 1;
-    }
-
-    .enrol-bar-price {
-      font-family: var(--fd);
-      font-size: clamp(28px, 3.5vw, 44px);
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      color: var(--text);
-    }
-
-    .enrol-bar-right {
-      display: flex;
-      align-items: center;
-      gap: clamp(16px, 2.5vw, 28px);
-      flex-wrap: wrap;
-    }
-
-    .enrol-note {
+    .course-card-venue {
       font-size: 12px;
       color: var(--text-2);
-      line-height: 1.55;
-      max-width: 20ch;
-      text-align: right;
     }
 
-    @media (max-width: 720px) {
-      .version-grid { grid-template-columns: 1fr; }
-      .phase-row { grid-template-columns: clamp(64px, 14vw, 100px) 1fr; }
+    .course-card-footer {
+      padding: 0 22px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
     }
 
-    @media (max-width: 560px) {
-      .enrol-bar { flex-direction: column; align-items: flex-start; }
-      .enrol-bar-right { width: 100%; }
-      .enrol-note { text-align: left; max-width: none; }
-      .enrol-bar .btn-primary { width: 100%; justify-content: center; }
+    .course-price-block {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .course-price {
+      font-family: var(--fd);
+      font-size: clamp(26px, 3vw, 34px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      color: var(--text);
+    }
+
+    .price-vat-note {
+      font-size: 11px;
+      color: var(--text-2);
+      margin-top: 2px;
+    }
+
+    @media (max-width: 640px) {
+      .courses-grid { grid-template-columns: 1fr; }
+      .course-card-footer { flex-direction: column; align-items: stretch; }
+      .course-card-footer .btn-primary { justify-content: center; }
     }
   </style>
 </head>
@@ -440,26 +176,29 @@
 <body>
   <a href="#main-content" class="skip-link">Skip to content</a>
 
+  <!-- ===== NAVBAR ===== -->
   <div class="navbar-wrap" id="navbar-wrap">
     <nav class="navbar" id="navbar">
       <div class="nb-content">
         <a href="../" class="nb-logo">
           <picture>
-            <source srcset="../logo-icon.avif" type="image/avif">
-            <img src="../logo-icon.png" alt="" class="nb-logo-icon">
+            <source srcset="./logo-icon.avif" type="image/avif">
+            <img src="./logo-icon.png" alt="" class="nb-logo-icon">
           </picture>
           <picture>
-            <source srcset="../logo-wordmark.avif" type="image/avif">
-            <img src="../logo-wordmark.png" alt="The Reel Recipe" class="nb-logo-wordmark">
+            <source srcset="./logo-wordmark.avif" type="image/avif">
+            <img src="./logo-wordmark.png" alt="The Reel Recipe" class="nb-logo-wordmark">
           </picture>
         </a>
-        <div class="nb-links">
+
+        <div class="nb-links" id="nb-links">
           <a href="./courses.html" class="nb-link nb-link--courses">Courses</a>
           <a href="./contact.html" class="nb-link">Contact</a>
           <a href="./login.html" class="nb-link" id="nav-login">Login</a>
           <a href="./my-learning.html" class="nb-link" id="nav-mylearning" style="display:none">My Learning</a>
           <button class="nb-link" id="nav-logout" style="display:none;background:none;border:none;cursor:pointer;font:inherit;color:inherit;padding:0;">Log out</button>
         </div>
+
         <div class="nb-right-mobile">
           <button type="button" class="nb-menu-btn" id="menuBtn" aria-label="Toggle menu">
             <svg id="iconMenu" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -470,11 +209,12 @@
     </nav>
   </div>
 
+  <!-- Mobile menu -->
   <div class="mobile-menu" id="mobileMenu">
     <div class="mm-header">
       <picture>
-        <source srcset="../logo-icon.avif" type="image/avif">
-        <img src="../logo-icon.png" alt="" class="mm-logo-icon">
+        <source srcset="./logo-icon.avif" type="image/avif">
+        <img src="./logo-icon.png" alt="" class="mm-logo-icon">
       </picture>
       <button type="button" class="mobile-close" onclick="closeMobile()" aria-label="Close menu">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -491,255 +231,43 @@
 
   <main id="main-content">
 
-    <!-- ── Hero ── -->
-    <section class="course-hero">
+    <!-- ===== HERO ===== -->
+    <section class="courses-hero">
       <div class="container">
-        <div class="section-label fade-up" style="animation-delay:.08s">TRR Learning</div>
-        <h1 class="course-hl">
-          <span class="chl-1 fade-up" style="animation-delay:.18s">Foundations of</span>
-          <span class="chl-2 fade-up" style="animation-delay:.3s">Viral<br>Content</span>
+        <div class="section-label fade-up" style="animation-delay:.1s">TRR Learning</div>
+        <h1 class="section-title fade-up" style="animation-delay:.22s">
+          Our<br>
+          <em style="font-style:italic; color:var(--accent)">Courses</em>
         </h1>
-        <div class="hero-stats fade-up" style="animation-delay:.42s">
-          <div class="hero-stat">
-            <span class="hero-stat-n">15</span>
-            <span class="hero-stat-label">Chapters</span>
-          </div>
-          <div class="hero-divider" aria-hidden="true"></div>
-          <div class="hero-stat">
-            <span class="hero-stat-n">500M+</span>
-            <span class="hero-stat-label">Views behind the system</span>
-          </div>
-          <div class="hero-divider" aria-hidden="true"></div>
-          <div class="hero-stat">
-            <span class="hero-stat-n">0</span>
-            <span class="hero-stat-label">Experience required</span>
-          </div>
-        </div>
-        <p class="hero-pitch fade-up" style="animation-delay:.52s">
-          The complete system behind viral content. Hooks, attention psychology, storytelling structure, editing pacing, production setup, and distribution — everything that makes content actually travel.
+        <p class="section-sub fade-up" style="animation-delay:.34s;max-width:52ch">
+          Online courses and in-person workshops on viral content creation — built from 500M+ real views
         </p>
       </div>
     </section>
 
-    <!-- ── Version picker ── -->
-    <section class="version-section" id="version-section">
+    <!-- ===== CATALOGUE ===== -->
+    <section class="section" style="padding-top:0">
       <div class="container">
-        <div class="section-eyebrow fade-up">Choose your format</div>
-        <h2 class="version-heading fade-up">How do you want to learn?</h2>
-
-        <div class="version-grid" role="radiogroup" aria-label="Course format">
-
-          <div class="version-card selected scroll-reveal" data-course-id="foundations-online" role="radio" aria-checked="true" tabindex="0">
-            <div class="version-card-top">
-              <span class="version-type-badge version-type-badge--online">Online</span>
-              <div class="version-radio" aria-hidden="true">
-                <div class="version-radio-dot"></div>
-              </div>
-            </div>
-            <div class="version-name">Self-paced<br>Online</div>
-            <p class="version-desc">Access all 15 chapters at your own pace. Lifetime access through the My Learning dashboard, start whenever you're ready.</p>
-            <div class="version-features">
-              <div class="version-feature">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                Lifetime access
-              </div>
-              <div class="version-feature">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                All 15 chapters on demand
-              </div>
-              <div class="version-feature">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                Login credentials by email after purchase
-              </div>
-            </div>
-            <div class="version-price-block">
-              <span class="version-price" id="online-price"></span>
-              <span class="version-vat">incl. VAT</span>
-            </div>
-          </div>
-
-          <div class="version-card scroll-reveal" data-course-id="foundations-physical" role="radio" aria-checked="false" tabindex="0" style="transition-delay:.07s">
-            <div class="version-card-top">
-              <span class="version-type-badge version-type-badge--physical">In-person</span>
-              <div class="version-radio" aria-hidden="true">
-                <div class="version-radio-dot"></div>
-              </div>
-            </div>
-            <div class="version-name">Live<br>Workshop</div>
-            <p class="version-desc">The full system delivered in person. Live sessions, real-time feedback, and direct access to the instructor. Limited seats per cohort.</p>
-            <div class="version-features">
-              <div class="version-feature">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                Cairo — venue TBA
-              </div>
-              <div class="version-feature">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                Direct instructor access
-              </div>
-              <div class="version-feature">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                QR entry pass by email after purchase
-              </div>
-            </div>
-            <div class="version-price-block">
-              <span class="version-price" id="physical-price"></span>
-              <span class="version-vat">incl. VAT</span>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ── Curriculum ── -->
-    <section class="curriculum-section">
-      <div class="container">
-        <div class="curriculum-header">
-          <h2 class="curriculum-title">What you'll learn</h2>
-          <span class="curriculum-count">15 chapters · 5 phases</span>
-        </div>
-
-        <div class="phase-row scroll-reveal">
-          <div class="phase-label-col">
-            <span class="phase-num" aria-hidden="true">01</span>
-            <span class="phase-name">The Science of Virality</span>
-          </div>
-          <div class="phase-chapters">
-            <div class="chapter-row">
-              <span class="ch-num">Ch 1</span>
-              <span class="ch-title">Introduction &amp; Foundations of Viral Content</span>
-            </div>
-            <div class="chapter-row">
-              <span class="ch-num">Ch 2</span>
-              <span class="ch-title">Core Success Principles for Creators</span>
-            </div>
-            <div class="chapter-row">
-              <span class="ch-num">Ch 3</span>
-              <span class="ch-title">The Psychology of Attention</span>
-            </div>
-            <div class="chapter-row">
-              <span class="ch-num">Ch 4</span>
-              <span class="ch-title">Virality: Myths vs. Reality</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="phase-row scroll-reveal" style="transition-delay:.06s">
-          <div class="phase-label-col">
-            <span class="phase-num" aria-hidden="true">02</span>
-            <span class="phase-name">Audience, Formula &amp; Tension</span>
-          </div>
-          <div class="phase-chapters">
-            <div class="chapter-row">
-              <span class="ch-num">Ch 5</span>
-              <span class="ch-title">Understanding Your Audience</span>
-            </div>
-            <div class="chapter-row">
-              <span class="ch-num">Ch 6</span>
-              <span class="ch-title">Relatability, Aesthetics &amp; Niche Strategy</span>
-            </div>
-            <div class="chapter-row">
-              <span class="ch-num">Ch 7</span>
-              <span class="ch-title">The Viral Content Formula</span>
-            </div>
-            <div class="chapter-row">
-              <span class="ch-num">Ch 8</span>
-              <span class="ch-title">Tension, Open Loops &amp; Shareability</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="phase-row scroll-reveal" style="transition-delay:.12s">
-          <div class="phase-label-col">
-            <span class="phase-num" aria-hidden="true">03</span>
-            <span class="phase-name">Format Selection</span>
-          </div>
-          <div class="phase-chapters">
-            <div class="chapter-row">
-              <span class="ch-num">Ch 9</span>
-              <span class="ch-title">Choosing the Right Format</span>
-            </div>
-            <div class="chapter-row">
-              <span class="ch-num">Ch 10</span>
-              <span class="ch-title">Format Types in Depth</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="phase-row scroll-reveal" style="transition-delay:.18s">
-          <div class="phase-label-col">
-            <span class="phase-num" aria-hidden="true">04</span>
-            <span class="phase-name">Editing for Retention</span>
-          </div>
-          <div class="phase-chapters">
-            <div class="chapter-row">
-              <span class="ch-num">Ch 11</span>
-              <span class="ch-title">Editing for Virality</span>
-            </div>
-            <div class="chapter-row">
-              <span class="ch-num">Ch 12</span>
-              <span class="ch-title">Advanced Editing Techniques</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="phase-row scroll-reveal" style="transition-delay:.24s">
-          <div class="phase-label-col">
-            <span class="phase-num" aria-hidden="true">05</span>
-            <span class="phase-name">Production &amp; Distribution</span>
-          </div>
-          <div class="phase-chapters">
-            <div class="chapter-row">
-              <span class="ch-num">Ch 13</span>
-              <span class="ch-title">Lighting &amp; Sound Setup</span>
-            </div>
-            <div class="chapter-row">
-              <span class="ch-num">Ch 14</span>
-              <span class="ch-title">Shooting Techniques &amp; Camera Basics</span>
-            </div>
-            <div class="chapter-row">
-              <span class="ch-num">Ch 15</span>
-              <span class="ch-title">Distribution &amp; Growth</span>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ── Enrol bar ── -->
-    <section class="enrol-section">
-      <div class="container">
-        <div class="enrol-bar fade-up">
-          <div class="enrol-bar-info">
-            <span class="enrol-bar-selected" id="enrol-format-label">Online course</span>
-            <span class="enrol-bar-name">Foundations of Viral Content</span>
-          </div>
-          <div class="enrol-bar-right">
-            <span class="enrol-bar-price" id="enrol-price"></span>
-            <p class="enrol-note">incl. VAT · 14-day refund right</p>
-            <a href="./checkout.html?course=foundations-online" id="enrol-link" class="btn-primary">
-              Enrol now
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-            </a>
-          </div>
+        <div class="courses-grid" id="courses-grid">
+          <!-- populated by JS -->
         </div>
       </div>
     </section>
 
   </main>
 
+  <!-- ===== FOOTER ===== -->
   <footer class="footer">
     <div class="container">
       <div class="footer-top">
         <a href="../" class="footer-brand">
           <picture>
-            <source srcset="../logo-icon.avif" type="image/avif">
-            <img src="../logo-icon.png" alt="" class="footer-icon">
+            <source srcset="./logo-icon.avif" type="image/avif">
+            <img src="./logo-icon.png" alt="" class="footer-icon">
           </picture>
           <picture>
-            <source srcset="../logo-wordmark.avif" type="image/avif">
-            <img src="../logo-wordmark.png" alt="The Reel Recipe" class="footer-wm">
+            <source srcset="./logo-wordmark.avif" type="image/avif">
+            <img src="./logo-wordmark.png" alt="The Reel Recipe" class="footer-wm">
           </picture>
         </a>
         <p class="footer-tag">Viral content. Real results</p>
@@ -767,81 +295,91 @@
   </footer>
 
   <script type="module">
-    import { getCourseById, formatPrice } from './courses-data.js';
+    import { COURSES, formatPrice } from './courses-data.js';
     import { isAuthenticated, logout } from './auth.js';
 
+    /* Auth-aware nav */
     const authed = isAuthenticated();
-    document.getElementById('nav-login').style.display      = authed ? 'none' : '';
-    document.getElementById('nav-mylearning').style.display = authed ? ''     : 'none';
-    document.getElementById('nav-logout').style.display     = authed ? ''     : 'none';
-    document.getElementById('mob-login').style.display      = authed ? 'none' : '';
-    document.getElementById('mob-mylearning').style.display = authed ? ''     : 'none';
-    document.getElementById('mob-logout').style.display     = authed ? ''     : 'none';
+    document.getElementById('nav-login').style.display    = authed ? 'none'  : '';
+    document.getElementById('nav-mylearning').style.display = authed ? '' : 'none';
+    document.getElementById('nav-logout').style.display   = authed ? '' : 'none';
+    document.getElementById('mob-login').style.display    = authed ? 'none'  : '';
+    document.getElementById('mob-mylearning').style.display = authed ? '' : 'none';
+    document.getElementById('mob-logout').style.display   = authed ? '' : 'none';
     document.getElementById('nav-logout').addEventListener('click', logout);
     document.getElementById('mob-logout').addEventListener('click', logout);
 
-    const onlineCourse   = getCourseById('foundations-online');
-    const physicalCourse = getCourseById('foundations-physical');
+    /* Render catalogue */
+    const grid = document.getElementById('courses-grid');
+    COURSES.forEach((course, i) => {
+      const typeLabel = course.type === 'online' ? 'Online' : 'In-person';
+      const badgeClass = course.type === 'online' ? 'type-badge--online' : 'type-badge--physical';
+      const venueLine = (course.venue || course.date)
+        ? `<div class="course-card-meta">
+             ${course.venue ? `<span class="course-card-venue">${course.venue}</span>` : ''}
+             ${course.date  ? `<span class="course-card-venue">${course.date}</span>`  : ''}
+           </div>`
+        : '';
 
-    document.getElementById('online-price').textContent   = formatPrice(onlineCourse.priceEGP);
-    document.getElementById('physical-price').textContent = formatPrice(physicalCourse.priceEGP);
-    document.getElementById('enrol-price').textContent    = formatPrice(onlineCourse.priceEGP);
-
-    let selectedId = 'foundations-online';
-
-    function selectVersion(courseId) {
-      selectedId = courseId;
-      const course = getCourseById(courseId);
-      const isOnline = course.type === 'online';
-
-      document.querySelectorAll('.version-card').forEach(card => {
-        const isThis = card.dataset.courseId === courseId;
-        card.classList.toggle('selected', isThis);
-        card.setAttribute('aria-checked', String(isThis));
-      });
-
-      document.getElementById('enrol-link').href        = `./checkout.html?course=${encodeURIComponent(courseId)}`;
-      document.getElementById('enrol-format-label').textContent = isOnline ? 'Online course' : 'In-person workshop';
-      document.getElementById('enrol-price').textContent        = formatPrice(course.priceEGP);
-    }
-
-    document.querySelectorAll('.version-card').forEach(card => {
-      card.addEventListener('click', () => selectVersion(card.dataset.courseId));
-      card.addEventListener('keydown', e => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          selectVersion(card.dataset.courseId);
-        }
-      });
+      const card = document.createElement('article');
+      card.className = 'course-card scroll-reveal';
+      card.style.transitionDelay = `${i * 0.07}s`;
+      card.innerHTML = `
+        <div class="course-card-thumb" aria-hidden="true">
+          <span class="thumb-placeholder">Thumbnail TBA</span>
+        </div>
+        <div class="course-card-body">
+          <div class="course-card-badges">
+            <span class="type-badge ${badgeClass}">${typeLabel}</span>
+          </div>
+          <h2 class="course-card-title">${course.title}</h2>
+          <p class="course-card-blurb">${course.blurb}</p>
+          ${venueLine}
+        </div>
+        <div class="course-card-footer">
+          <div class="course-price-block">
+            <span class="course-price">${formatPrice(course.priceEGP)}</span>
+            <span class="price-vat-note">Price includes VAT</span>
+          </div>
+          <a href="./checkout.html?course=${encodeURIComponent(course.id)}" class="btn-primary">
+            Enrol
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+      `;
+      grid.appendChild(card);
     });
 
-    const navbar     = document.getElementById('navbar');
-    const menuBtn    = document.getElementById('menuBtn');
-    const iconMenu   = document.getElementById('iconMenu');
-    const iconX      = document.getElementById('iconX');
+    /* Shared page behaviours */
+    const navbar  = document.getElementById('navbar');
+    const menuBtn = document.getElementById('menuBtn');
+    const iconMenu = document.getElementById('iconMenu');
+    const iconX   = document.getElementById('iconX');
     const mobileMenu = document.getElementById('mobileMenu');
 
     window.addEventListener('scroll', () => {
       navbar.classList.toggle('scrolled', window.scrollY > 50);
     }, { passive: true });
 
-    menuBtn.addEventListener('click', () => {
-      const open = mobileMenu.classList.toggle('open');
-      iconMenu.style.display = open ? 'none'  : 'block';
-      iconX.style.display    = open ? 'block' : 'none';
-      navbar.classList.toggle('menu-open', open);
-    });
+    if (menuBtn) {
+      menuBtn.addEventListener('click', () => {
+        const open = mobileMenu.classList.toggle('open');
+        iconMenu.style.display = open ? 'none'  : 'block';
+        iconX.style.display    = open ? 'block' : 'none';
+        navbar.classList.toggle('menu-open', open);
+      });
+    }
 
-    window.closeMobile = function () {
+    window.closeMobile = function() {
       mobileMenu.classList.remove('open');
-      iconMenu.style.display = 'block';
-      iconX.style.display    = 'none';
+      if (iconMenu) iconMenu.style.display = 'block';
+      if (iconX)    iconX.style.display    = 'none';
       navbar.classList.remove('menu-open');
     };
 
     const ro = new IntersectionObserver(entries => {
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.06, rootMargin: '-16px' });
+    }, { threshold: 0.1, rootMargin: '-20px' });
     document.querySelectorAll('.scroll-reveal').forEach(el => ro.observe(el));
 
     document.getElementById('footerCopy').textContent =

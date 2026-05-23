@@ -12,195 +12,148 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" href="../fonts/vip-hala-bold.otf" as="font" type="font/otf" crossorigin>
+  <link rel="preload" href="./fonts/vip-hala-bold.otf" as="font" type="font/otf" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;0,900;1,700;1,800&family=Figtree:wght@300;400;500;600&family=Cairo:wght@400;500;600;700;800&display=block" rel="stylesheet">
-  <link rel="stylesheet" href="../styles.css">
+
+  <link rel="stylesheet" href="./styles.css">
 
   <style>
     .dashboard-wrap {
       padding: clamp(100px, 12vw, 148px) 0 clamp(64px, 8vw, 100px);
+      min-height: calc(100svh - 68px);
     }
 
-    /* ── Greeting ── */
     .dashboard-greeting {
-      padding-bottom: clamp(36px, 5vw, 56px);
-      border-bottom: 1px solid var(--border);
       margin-bottom: clamp(36px, 5vw, 56px);
-    }
-
-    .dash-hl {
-      font-family: var(--fd);
-      font-size: clamp(52px, 9vw, 120px);
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: -0.03em;
-      line-height: 0.87;
-      color: var(--text);
-      display: flex;
-      flex-direction: column;
-      margin-top: 12px;
-    }
-
-    .dash-hl em { font-style: italic; color: var(--accent); }
-
-    /* ── Course block ── */
-    .course-block {
-      display: flex;
-      flex-direction: column;
-      gap: clamp(40px, 6vw, 64px);
-    }
-
-    .cb-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
-      padding-bottom: clamp(20px, 3vw, 28px);
       border-bottom: 1px solid var(--border);
+      padding-bottom: clamp(24px, 3vw, 36px);
     }
 
-    .cb-title {
+    .dashboard-hl {
       font-family: var(--fd);
-      font-size: clamp(28px, 4vw, 52px);
+      font-size: clamp(36px, 5.5vw, 64px);
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: -0.02em;
-      line-height: 1;
+      line-height: 0.95;
+      color: var(--text);
+      margin-top: 10px;
+    }
+
+    .dashboard-hl em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .courses-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .course-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: clamp(16px, 3vw, 32px);
+      padding: 24px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      transition: border-color 0.22s ease;
+    }
+
+    .course-row:hover { border-color: var(--border-2); }
+
+    .course-row-info {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .course-row-title {
+      font-family: var(--fd);
+      font-size: clamp(20px, 2.5vw, 28px);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
       color: var(--text);
     }
 
-    .cb-meta {
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+    .course-row-meta {
+      font-size: 13px;
       color: var(--text-2);
-      margin-top: 6px;
     }
 
-    /* Progress bar — uses transform:scaleX to avoid layout thrash */
-    .progress-row {
+    .course-row-progress {
       display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-top: 16px;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 10px;
     }
 
     .progress-bar-wrap {
-      flex: 1;
-      max-width: 320px;
-      height: 3px;
+      height: 4px;
       background: var(--border);
       border-radius: 2px;
       overflow: hidden;
+      max-width: 280px;
     }
 
     .progress-bar-fill {
       height: 100%;
       background: var(--accent);
       border-radius: 2px;
-      transform-origin: left;
-      transform: scaleX(0);
-      transition: transform 0.7s var(--expo);
+      transition: width 0.6s var(--expo);
     }
 
     .progress-label {
       font-size: 11px;
       font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+      letter-spacing: 0.06em;
       color: var(--text-2);
-      white-space: nowrap;
     }
 
-    /* ── Phase rows ── */
-    .phase-list { display: flex; flex-direction: column; }
-
-    .phase-row {
-      display: grid;
-      grid-template-columns: clamp(140px, 18vw, 200px) 1fr;
-      gap: clamp(20px, 3.5vw, 48px);
-      padding: clamp(24px, 3.5vw, 36px) 0;
+    .lesson-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-top: 16px;
+      padding-top: 16px;
       border-top: 1px solid var(--border);
-      align-items: start;
-      transition: background 0.2s ease;
+      grid-column: 1 / -1;
     }
-
-    .phase-row:last-child { border-bottom: 1px solid var(--border); }
-
-    .phase-meta { display: flex; flex-direction: column; gap: 4px; }
-
-    .phase-tag {
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--accent);
-    }
-
-    .phase-num {
-      font-family: var(--fd);
-      font-size: clamp(44px, 7vw, 80px);
-      font-weight: 800;
-      line-height: 0.88;
-      color: var(--border-2);
-      user-select: none;
-    }
-
-    .phase-chapters {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: oklch(62% 0.01 278);
-    }
-
-    .phase-name {
-      font-family: var(--fd);
-      font-size: clamp(18px, 2.2vw, 26px);
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: -0.01em;
-      color: var(--text);
-      margin-bottom: 16px;
-    }
-
-    .lesson-items { display: flex; flex-direction: column; gap: 2px; }
 
     .lesson-item {
       display: flex;
       align-items: center;
       gap: 12px;
-      padding: 9px 12px;
+      padding: 10px 12px;
       border-radius: var(--r);
       font-size: 14px;
       color: var(--text-2);
-      transition: background 0.15s ease, color 0.15s ease;
-      cursor: pointer;
+      transition: background 0.15s ease;
     }
 
     .lesson-item:hover { background: var(--surface-2); color: var(--text); }
 
-    .lesson-n {
+    .lesson-num {
       font-family: var(--fd);
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 800;
       color: var(--border-2);
-      min-width: 26px;
-      flex-shrink: 0;
+      min-width: 28px;
     }
 
-    .lesson-dot {
+    .lesson-status {
       margin-left: auto;
-      flex-shrink: 0;
-      width: 16px;
-      height: 16px;
+      width: 18px; height: 18px;
       border-radius: 50%;
       border: 1.5px solid var(--border-2);
+      flex-shrink: 0;
     }
 
-    .lesson-dot.done {
+    .lesson-status.done {
       background: var(--accent);
       border-color: var(--accent);
       display: flex;
@@ -208,10 +161,27 @@
       justify-content: center;
     }
 
+    .continue-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 22px;
+      white-space: nowrap;
+    }
+
+    .empty-state {
+      padding: clamp(48px, 7vw, 80px) 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
     @media (max-width: 640px) {
-      .phase-row { grid-template-columns: 1fr; }
-      .phase-num { font-size: clamp(36px, 10vw, 60px); }
-      .cb-header { flex-direction: column; }
+      .course-row {
+        grid-template-columns: 1fr;
+      }
+      .continue-btn { width: 100%; justify-content: center; }
     }
   </style>
 </head>
@@ -219,17 +189,18 @@
 <body>
   <a href="#main-content" class="skip-link">Skip to content</a>
 
+  <!-- ===== NAVBAR ===== -->
   <div class="navbar-wrap" id="navbar-wrap">
     <nav class="navbar" id="navbar">
       <div class="nb-content">
         <a href="../" class="nb-logo">
           <picture>
-            <source srcset="../logo-icon.avif" type="image/avif">
-            <img src="../logo-icon.png" alt="" class="nb-logo-icon">
+            <source srcset="./logo-icon.avif" type="image/avif">
+            <img src="./logo-icon.png" alt="" class="nb-logo-icon">
           </picture>
           <picture>
-            <source srcset="../logo-wordmark.avif" type="image/avif">
-            <img src="../logo-wordmark.png" alt="The Reel Recipe" class="nb-logo-wordmark">
+            <source srcset="./logo-wordmark.avif" type="image/avif">
+            <img src="./logo-wordmark.png" alt="The Reel Recipe" class="nb-logo-wordmark">
           </picture>
         </a>
         <div class="nb-links">
@@ -251,8 +222,8 @@
   <div class="mobile-menu" id="mobileMenu">
     <div class="mm-header">
       <picture>
-        <source srcset="../logo-icon.avif" type="image/avif">
-        <img src="../logo-icon.png" alt="" class="mm-logo-icon">
+        <source srcset="./logo-icon.avif" type="image/avif">
+        <img src="./logo-icon.png" alt="" class="mm-logo-icon">
       </picture>
       <button type="button" class="mobile-close" onclick="closeMobile()" aria-label="Close menu">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -268,7 +239,9 @@
 
   <main id="main-content">
     <div class="dashboard-wrap">
-      <div class="container" id="dashboard-root"></div>
+      <div class="container" id="dashboard-root">
+        <!-- populated by JS after auth guard -->
+      </div>
     </div>
   </main>
 
@@ -277,12 +250,12 @@
       <div class="footer-top">
         <a href="../" class="footer-brand">
           <picture>
-            <source srcset="../logo-icon.avif" type="image/avif">
-            <img src="../logo-icon.png" alt="" class="footer-icon">
+            <source srcset="./logo-icon.avif" type="image/avif">
+            <img src="./logo-icon.png" alt="" class="footer-icon">
           </picture>
           <picture>
-            <source srcset="../logo-wordmark.avif" type="image/avif">
-            <img src="../logo-wordmark.png" alt="The Reel Recipe" class="footer-wm">
+            <source srcset="./logo-wordmark.avif" type="image/avif">
+            <img src="./logo-wordmark.png" alt="The Reel Recipe" class="footer-wm">
           </picture>
         </a>
         <p class="footer-tag">Viral content. Real results</p>
@@ -313,136 +286,122 @@
     import { COURSES } from './courses-data.js';
     import { guard, currentUser, logout } from './auth.js';
 
-    guard(); // cosmetic — real gating is server-side
+    // Guard: redirects to login.html if not authenticated.
+    // NOTE: cosmetic only — real enforcement is server-side.
+    guard();
 
-    const user   = currentUser();
-    const root   = document.getElementById('dashboard-root');
-    const onlineCourses = COURSES.filter(c => c.type === 'online');
+    const user = currentUser();
+    const root = document.getElementById('dashboard-root');
 
     document.getElementById('nav-logout').addEventListener('click', logout);
     document.getElementById('mob-logout').addEventListener('click', logout);
 
-    const PHASES = [
-      { tag: 'Phase 01', num: '01', name: 'The Science of Virality',      chapters: '1 – 4',  lessons: ['The 2-second hook', 'Why people stop scrolling', 'Dopamine cycles and shares', 'Virality myths debunked'] },
-      { tag: 'Phase 02', num: '02', name: 'Audience, Formula & Tension',   chapters: '5 – 8',  lessons: ['Emotional triggers', '3-act structure for short video', 'Open loops and tension', 'Shareability engineering'] },
-      { tag: 'Phase 03', num: '03', name: 'Format Selection',              chapters: '9 – 10', lessons: ['Format types and viewer intent', 'POV storytelling and content identity'] },
-      { tag: 'Phase 04', num: '04', name: 'Editing for Retention',         chapters: '11 – 12',lessons: ['Pacing and the 3-second shift rule', 'J-cuts, jump cuts, and text overlays'] },
-      { tag: 'Phase 05', num: '05', name: 'Production & Distribution',     chapters: '13 – 15',lessons: ['Lighting and camera in any room', 'Platform upload and cross-posting', 'Growth strategy and consistency'] },
+    /* For the prototype, show all online-type courses */
+    const onlineCourses = COURSES.filter(c => c.type === 'online');
+
+    const emailLabel = user ? `<span style="color:var(--accent)">${user.email}</span>` : '';
+
+    const lessonsByChapter = [
+      'The 2-second hook — what stops a scroll',
+      'Dopamine cycles and why people share',
+      'Virality myths debunked',
+      'Your hook library',
+      'Emotional triggers and audience mapping',
+      '3-act structure for short video',
+      'Open loops and tension',
+      'Shareability engineering',
+      'Format selection — choosing before you record',
+      'Content identity and POV storytelling',
+      'Pacing and the 3-second shift rule',
+      'J-cuts, jump cuts, and text overlays',
+      'Lighting and camera in any room',
+      'Platform upload and cross-posting',
+      'Growth strategy and consistency',
     ];
 
-    function buildPhaseList(progress) {
-      let chapter = 0;
-      return PHASES.map(phase => {
-        const rows = phase.lessons.map(lesson => {
-          chapter++;
-          const done = chapter <= progress;
-          return `
-            <div class="lesson-item">
-              <span class="lesson-n">${String(chapter).padStart(2, '0')}</span>
-              <span>${lesson}</span>
-              <span class="lesson-dot${done ? ' done' : ''}" aria-hidden="true">
-                ${done ? `<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>` : ''}
-              </span>
-            </div>`;
-        }).join('');
-        return `
-          <div class="phase-row scroll-reveal">
-            <div class="phase-meta">
-              <span class="phase-tag">${phase.tag}</span>
-              <div class="phase-num">${phase.num}</div>
-              <span class="phase-chapters">Ch. ${phase.chapters}</span>
-            </div>
-            <div>
-              <div class="phase-name">${phase.name}</div>
-              <div class="lesson-items">${rows}</div>
-            </div>
-          </div>`;
-      }).join('');
-    }
-
-    const progress = 0; // placeholder — comes from backend
-    const total    = 15;
-    const pct      = progress / total;
-
-    let coursesHTML;
+    let coursesHTML = '';
     if (onlineCourses.length === 0) {
       coursesHTML = `
-        <div style="padding:clamp(40px,6vw,64px) 0;display:flex;flex-direction:column;gap:16px">
+        <div class="empty-state">
           <p class="section-sub" style="margin:0">You don't have any online courses yet.</p>
-          <a href="./courses.html" class="btn-primary" style="width:fit-content">Browse courses</a>
+          <a href="./courses.html" class="btn-primary">Browse courses</a>
         </div>`;
     } else {
-      coursesHTML = onlineCourses.map(course => `
-        <div class="course-block">
-          <div class="cb-header scroll-reveal">
-            <div>
-              <h2 class="cb-title">${course.title}</h2>
-              <div class="cb-meta">Online · 15 chapters</div>
-              <div class="progress-row">
-                <div class="progress-bar-wrap">
-                  <div class="progress-bar-fill" data-pct="${pct}"></div>
-                </div>
-                <span class="progress-label">${progress} / ${total} complete</span>
-              </div>
-            </div>
-            <a href="#" class="btn-primary">
-              ${progress === 0 ? 'Start' : 'Continue'}
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-            </a>
-          </div>
-          <div class="phase-list">${buildPhaseList(progress)}</div>
-        </div>`).join('');
-    }
+      coursesHTML = `<div class="courses-list">` +
+        onlineCourses.map(course => {
+          const progress = 0; // placeholder — real progress comes from the backend
+          const lessons  = lessonsByChapter.map((title, idx) => `
+            <div class="lesson-item">
+              <span class="lesson-num">${String(idx + 1).padStart(2, '0')}</span>
+              <span>${title}</span>
+              <span class="lesson-status${idx < progress ? ' done' : ''}" aria-hidden="true">
+                ${idx < progress ? `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>` : ''}
+              </span>
+            </div>`).join('');
 
-    const emailNote = user
-      ? `<p style="margin-top:10px;font-size:14px;color:var(--text-2)">Logged in as <span style="color:var(--accent)">${user.email}</span></p>`
-      : '';
+          return `
+            <div class="course-row scroll-reveal">
+              <div class="course-row-info">
+                <h2 class="course-row-title">${course.title}</h2>
+                <span class="course-row-meta">15 chapters · Online</span>
+                <div class="course-row-progress">
+                  <div class="progress-bar-wrap">
+                    <div class="progress-bar-fill" style="width:${(progress / 15 * 100).toFixed(0)}%"></div>
+                  </div>
+                  <span class="progress-label">${progress} / 15 chapters complete</span>
+                </div>
+              </div>
+              <a href="#" class="btn-primary continue-btn" aria-label="Continue ${course.title}">
+                Continue
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </a>
+              <div class="lesson-list">${lessons}</div>
+            </div>`;
+        }).join('') + `</div>`;
+    }
 
     root.innerHTML = `
       <div class="dashboard-greeting fade-up">
         <div class="section-label">My Learning</div>
-        <div class="dash-hl">
-          <span>Welcome</span>
+        <h1 class="dashboard-hl">
+          Welcome<br>
           <em>back</em>
-        </div>
-        ${emailNote}
+        </h1>
+        ${user ? `<p style="margin-top:10px;font-size:14px;color:var(--text-2)">Logged in as ${emailLabel}</p>` : ''}
       </div>
       ${coursesHTML}
     `;
 
-    /* Animate progress bars using transform:scaleX (no layout thrash) */
-    requestAnimationFrame(() => {
-      document.querySelectorAll('.progress-bar-fill').forEach(el => {
-        el.style.transform = `scaleX(${el.dataset.pct})`;
-      });
-    });
-
+    /* Scroll reveal */
     const ro = new IntersectionObserver(entries => {
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.08 });
+    }, { threshold: 0.1 });
     document.querySelectorAll('.scroll-reveal').forEach(el => ro.observe(el));
 
-    const navbar     = document.getElementById('navbar');
-    const menuBtn    = document.getElementById('menuBtn');
-    const iconMenu   = document.getElementById('iconMenu');
-    const iconX      = document.getElementById('iconX');
+    /* Navbar */
+    const navbar  = document.getElementById('navbar');
+    const menuBtn = document.getElementById('menuBtn');
+    const iconMenu = document.getElementById('iconMenu');
+    const iconX   = document.getElementById('iconX');
     const mobileMenu = document.getElementById('mobileMenu');
 
     window.addEventListener('scroll', () => {
       navbar.classList.toggle('scrolled', window.scrollY > 50);
     }, { passive: true });
 
-    menuBtn.addEventListener('click', () => {
-      const open = mobileMenu.classList.toggle('open');
-      iconMenu.style.display = open ? 'none'  : 'block';
-      iconX.style.display    = open ? 'block' : 'none';
-      navbar.classList.toggle('menu-open', open);
-    });
+    if (menuBtn) {
+      menuBtn.addEventListener('click', () => {
+        const open = mobileMenu.classList.toggle('open');
+        iconMenu.style.display = open ? 'none'  : 'block';
+        iconX.style.display    = open ? 'block' : 'none';
+        navbar.classList.toggle('menu-open', open);
+      });
+    }
 
-    window.closeMobile = function () {
+    window.closeMobile = function() {
       mobileMenu.classList.remove('open');
-      iconMenu.style.display = 'block';
-      iconX.style.display    = 'none';
+      if (iconMenu) iconMenu.style.display = 'block';
+      if (iconX)    iconX.style.display    = 'none';
       navbar.classList.remove('menu-open');
     };
 
